@@ -54,7 +54,7 @@ class GoogleMapsContainer extends React.Component {
     return (
       <Map
         item
-        xs = { 8 }
+        xs = { 6 }
         style = { style }
         google = { this.props.google }
         onClick = { this.onMapClick }
@@ -91,5 +91,5 @@ class GoogleMapsContainer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ api: "AIzaSyALsPkcR2ebrrWQt1HVj1YdgdO0RAyoBuQ"})(GoogleMapsContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: "AIzaSyALsPkcR2ebrrWQt1HVj1YdgdO0RAyoBuQ"})(GoogleMapsContainer));
 
