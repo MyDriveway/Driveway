@@ -1,35 +1,37 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  showingInfoWindow: false,
-  activeMarker: {},
-  selectedPlace: {}
+  allMarkers: [
+    {
+      position: { lat: 39.648209, lng: -75.711185 },
+      display: false
+    },
+  ],
+  selectedMarker: null
 }
 
 const mapReducer = (state=initialState, action) => {
+  let selectedMarker;
+  let allMarkers;
 
   switch(action.type) {
-    // case types.TOGGLE_SHOWING_INFO_WINDOW:
 
-    //   // return updated state
-    //   return {
-    //     ...state
-    //   };
-
-    // case types.ADD_ACTIVE_MARKER:
-
-    //   // return updated state
-    //   return {
-    //     ...state
-    //   };
-
-    //   case types.ADD_SELECTED_PLACE:
-
-    //   // return updated state
-    //   return {
-    //     ...state
-    //   };
-
+    case types.SELECT_MARKER:
+      selectedMarker = action.payload;
+      allMarkers = state.allMarkers;
+      return {
+        allMarkers,
+        selectedMarker
+      }
+      
+    case types.DESELECT:
+      selectedMarker = null;
+      allMarkers = state.allMarkers;
+      return {
+        allMarkers,
+        selectedMarker
+      }
+      
     default:
       return state;
   }

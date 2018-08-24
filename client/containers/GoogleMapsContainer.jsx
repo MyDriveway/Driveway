@@ -9,13 +9,15 @@ import Paper from 'material-ui/Paper';
 
 const mapStateToProps = (store, ownProps) => ({
   // provide pertinent state here
-  showingInfoWindow: store.map.showingInfoWindow,
-  activeMarker: store.map.activeMarker,
-  addSelectedPlace: store.map.addSelectedPlace,
+  allMarkers: store.map.allMarkers,
+  selectedMarker: store.map.selectedMarker,
   google: ownProps.google
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  dispatchOnMarkerClick: (props) => dispatch(actions.selectMarker(props)),
+  dispatchOnMapClick: () => dispatch(actions.deselect()),
+});
 
 class GoogleMapsContainer extends React.Component {
   constructor(props) {
@@ -26,21 +28,12 @@ class GoogleMapsContainer extends React.Component {
     this.onMapClick = this.onMapClick.bind(this);
   }
 
-  onMarkerClick(props, marker, e) {
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
+  onMarkerClick(props, marker) {
+    this.props.dispatchOnMarkerClick(props);
   }
 
   onMapClick (props) {
-    if (this.props.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
-    }
+    this.props.dispatchOnMapClick();
   }
 
   render() {
@@ -50,6 +43,10 @@ class GoogleMapsContainer extends React.Component {
       'marginLeft': 'auto',
       'marginRight': 'auto'
     }
+
+    const markers = this.props.allMarkers.map((marker, i) => (
+      <Marker key={i} onClick={this.onMarkerClick} position={marker.position}> </Marker>
+    ))
 
     return (
       <Map
@@ -61,12 +58,7 @@ class GoogleMapsContainer extends React.Component {
         zoom = { 14 }
         initialCenter = {{ lat: 39.648209, lng: -75.711185 }}
       >
-        <Marker
-          onClick = { this.onMarkerClick }
-          title = { 'Changing Colors Garage' }
-          position = {{ lat: 39.648209, lng: -75.711185 }}
-          name = { 'Changing Colors Garage' }
-        />
+        {markers}
         {/* <InfoWindow
           marker = { this.props.activeMarker }
           visible = { this.props.showingInfoWindow }
