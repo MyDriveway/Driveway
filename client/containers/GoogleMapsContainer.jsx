@@ -56,7 +56,7 @@ class GoogleMapsContainer extends React.Component {
         style = { style }
         google = { this.props.google }
         onClick = { this.onMapClick }
-        zoom = { 14 }
+        zoom = { 12 }
         initialCenter = {{ lat: 39.648209, lng: -75.711185 }}
       >
         {markers}

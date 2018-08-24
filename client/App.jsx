@@ -6,15 +6,27 @@ import Results from './containers/Results.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loggedIn: false
+    }
   }
+
   render() {
-    return (
-      <div id="app-container">
-        <GoogleMapsContainer />
-      H3llo from react
-        <Results />
-      </div>
-    );
+
+    if (this.state.loggedIn) {
+      return (
+        <div id="app-container">
+          <GoogleMapsContainer />
+          <Results />
+        </div>
+      );
+    } else {
+      return (
+        <div id="app-container">
+          <Login />
+        </div>
+      );
+    }
   }
 }
 
