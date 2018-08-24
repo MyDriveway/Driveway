@@ -1,3 +1,5 @@
-//think about types of actions to have
-//export const <ACTION_NAME> = "ACTION_NAME";
+// export const ACTION_DESCRIPTION = "ACTION_DESCRIPTION";
 
+export const TOGGLE_SHOWING_INFO_WINDOW = 'TOGGLE_SHOWING_INFO_WINDOW';
+export const ADD_MARKET = 'ADD_ACTIVE_MARKER';
+export const DELETE_CARD = 'ADD_SELECTED_PLACE';

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 //import a wrapper
 
 class App extends Component {
@@ -8,7 +9,7 @@ class App extends Component {
   render() {
     return (
       <div id="app-container">
-      H3llo from react
+        <GoogleMapsContainer />
       </div>
     );
   }
