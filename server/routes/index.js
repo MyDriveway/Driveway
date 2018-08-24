@@ -1,20 +1,22 @@
-const multer = require('multer')
+const multer = require('multer');
+const DrivewaysController = require('../controller/driveways_controller')
 
-const drivewayStorage = multer.diskStorage({
+const drivewayImageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './driveway_img/')
+      cb(null, './uploads/')
     },
     filename: function (req, file, cb) {
       cb(null, new Date().toISOString() + file.originalname)
     }
   })
-  const driveway = multer({
-    storage: drivewayStorage,
+  const drivewayImage = multer({
+    storage: drivewayImageStorage,
     limits: {
-      fileSize: 1024 * 1024 * 7.5
+      fileSize: 1024 * 1024 * 12
     }
   })
 
 module.exports = app => {
-    app.post('/createDriveway', driveway.single('photo'), drivewaysController.create)
+
+    app.post('/createDriveway', drivewayImage.single('photo'), DrivewaysController.create)
 }

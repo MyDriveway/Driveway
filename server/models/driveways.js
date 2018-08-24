@@ -1,5 +1,18 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+
+const LocationSchema = new Schema({
+  type: {
+    type: String,
+    default: 'Point'
+  },
+  coordinates: {
+    type: [Number],
+    index: '2dsphere',
+    required: 'true'
+  }
+})
+
 const drivewaysSchema = new Schema({
   address: {
     type: String,
@@ -14,7 +27,7 @@ const drivewaysSchema = new Schema({
     required: true
   },
   zip: {
-    type: Number,
+    type: String,
     required: true
   },
   timeStart: {
@@ -26,19 +39,15 @@ const drivewaysSchema = new Schema({
     required: true
   },
   rateDay: {
-    type: Number,
+    type: String,
   },
   rateHour: {
-    type: Number,
+    type: String,
   },
   image: {
     type: String,
   },
-  coordinates: {
-    type: [Number], //lat, lng
-    index: '2dsphere',
-    required: 'true'
-  }
+  geometry: LocationSchema,
 })
 
 const Driveways = mongoose.model('driveways', drivewaysSchema)
