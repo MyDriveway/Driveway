@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import a wrapper
+import Results from './containers/Results.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class App extends Component {
     return (
       <div id="app-container">
       H3llo from react
+        <Results />
       </div>
     );
   }
