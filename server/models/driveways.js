@@ -31,6 +31,9 @@ const drivewaysSchema = new Schema({
   rateHour: {
     type: Number,
   },
+  image: {
+    type: String,
+  },
   coordinates: {
     type: [Number], //lat, lng
     index: '2dsphere',
