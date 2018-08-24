@@ -1,0 +1,45 @@
+{
+  "name": "Driveway",
+  "version": "1.0.0",
+  "description": "An app to lease driveways",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel ./app -d build",
+    "build:watch": "babel ./app -d build --watch",
+    "build:client": "webpack --config ./webpack.config.js/",
+    "build:watch:client": "webpack --config ./webpack.config.js/ --watch",
+    "build:prod": "npm run build && npm run build:client",
+    "start:dev": "parallelshell 'npm run build:watch' 'npm run build:watch:client' 'nodemon ./build/server/index.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hlmitchell/Driveway.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hlmitchell/Driveway/issues"
+  },
+  "homepage": "https://github.com/hlmitchell/Driveway#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "path": "^0.12.7",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^1.18.3",
+    "parallelshell": "^3.0.2",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
+  }
+}
