@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
+    margin: 10,
     maxWidth: 345,
   },
   media: {
@@ -20,7 +21,7 @@ const styles = {
 function MediaCard(props) {
   const { classes } = props;
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} key={props.key}>
       <CardMedia
         className={classes.media}
         // grab the image from the database through props
@@ -29,12 +30,14 @@ function MediaCard(props) {
       />
       <CardContent>
         <Typography gutterBottom variant="headline" component="h2">
-          {/* Address from database passed down through props */}
-          Address
+          {props.obj.address}
         </Typography>
         <Typography component="p">
-          {/* {description text from database for that driveway} */}
-          Insert other database data here: 
+          Daily Rate: ${props.obj.rateDay}
+          <br />
+          Hourly Rate: ${props.obj.rateHour}
+          <br />
+          Index: {props.obj.index}
         </Typography>
       </CardContent>
       <CardActions>
