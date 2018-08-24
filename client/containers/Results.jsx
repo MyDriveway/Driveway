@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 //import actions from action creators file
 import * as actions from '../actions/actions';
 import Card from '../components/DrivewayCard.jsx';
-
-const mapStateToProps = store => ({});
+//grab state from search
+const mapStateToProps = store => ({
+  address: store.searches.address,
+});
 
 const mapDispatchToProps = dispatch => ({});
 //try to style this Results container so that its size is flexible
@@ -17,17 +19,13 @@ class Results extends Component {
   }
   
   render() {
-    //for each database entry, render a new MediaCard
-    const allResults = () => {
-    let cards = [];
-      for (let i = 0; i < 10; i++) {
-        cards.push(<Card/>);
-      }
-      return cards;
-    }
     return(
       <div>
-        {allResults()}
+        {this.props.address.map((driveway, i) => {
+          return (
+            <Card obj={driveway} key={i}/>
+          )
+        })}
       </div>
     )
   }

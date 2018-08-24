@@ -10,8 +10,9 @@ class App extends Component {
   render() {
     return (
       <div id="app-container">
-        <GoogleMapsContainer />
       H3llo from react
+        <GoogleMapsContainer />
+        
         <Results />
       </div>
     );
