@@ -1,3 +1,4 @@
-//think about types of actions to have
-//export const <ACTION_NAME> = "ACTION_NAME";
+// export const ACTION_DESCRIPTION = “ACTION_DESCRIPTION”;
 
+export const SELECT_MARKER = 'SELECT_MARKER';
+export const DESELECT = 'DESELECT';

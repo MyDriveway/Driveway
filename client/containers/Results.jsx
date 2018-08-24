@@ -22,7 +22,6 @@ class Results extends Component {
     return(
       <div>
         {this.props.address.map((driveway, i) => {
-          console.log('rending ea card', driveway);
           return (
             <Card obj={driveway} key={i}/>
           )
