@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AddDriveway from "./containers/addDriveway.jsx"
-//import a wrapper
+import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
+import Results from './containers/Results.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -9,8 +10,10 @@ class App extends Component {
   render() {
     return (
       <div id="app-container">
-      H3llo from react
-      <AddDriveway />
+        H3llo from react
+        <AddDriveway />
+        <GoogleMapsContainer />
+        <Results />
       </div>
     );
   }
