@@ -28,7 +28,7 @@ class GoogleMapsContainer extends React.Component {
     this.onMapClick = this.onMapClick.bind(this);
   }
 
-  onMarkerClick(props, marker) {
+  onMarkerClick(props, marker, e) {
     this.props.dispatchOnMarkerClick(props);
   }
 
@@ -44,6 +44,7 @@ class GoogleMapsContainer extends React.Component {
       'marginRight': 'auto'
     }
 
+    //create an array of the Marker components
     const markers = this.props.allMarkers.map((marker, i) => (
       <Marker key={i} onClick={this.onMarkerClick} position={marker.position}> </Marker>
     ))
@@ -59,29 +60,10 @@ class GoogleMapsContainer extends React.Component {
         initialCenter = {{ lat: 39.648209, lng: -75.711185 }}
       >
         {markers}
-        {/* <InfoWindow
-          marker = { this.props.activeMarker }
-          visible = { this.props.showingInfoWindow }
-        > */}
-          {/* <Paper>
-            <Typography
-              variant = 'headline'
-              component = 'h4'
-            >
-              Changing Colors Garage
-            </Typography>
-            <Typography
-              component = 'p'
-            >
-              98G Albe Dr Newark, DE 19702 <br />
-              302-293-8627
-            </Typography>
-          </Paper> */}
-        {/* </InfoWindow> */}
       </Map>
     );
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: "AIzaSyALsPkcR2ebrrWQt1HVj1YdgdO0RAyoBuQ"})(GoogleMapsContainer));
+// actual API needs to be substituted in
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: process.env.GOOGLE_API})(GoogleMapsContainer));
 

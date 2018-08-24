@@ -6,6 +6,10 @@ const initialState = {
       position: { lat: 39.648209, lng: -75.711185 },
       display: false
     },
+    {
+      position: { lat: 39.658209, lng: -75.731185 },
+      display: false
+    },
   ],
   selectedMarker: null
 }
