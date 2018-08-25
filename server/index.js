@@ -17,10 +17,15 @@ app.use(express.static(path.join(__dirname +'./../'))); //serves the index.html
 app.use(bodyParser.json())
 
 app.get('/checkForSession', userController.checkForSession);
+app.get('/endSession', userController.endSession);
 app.post('/signup', userController.createAccount, userController.setSSIDCookie, userController.startSession);
 app.post('/login', userController.attemptLogin, userController.setSSIDCookie, userController.startSession);
 
 routes(app)
+
+app.use((err, req, res, next) => {
+  //res.render(err);
+})
 
 app.listen(3000, () => {
   console.log('Listening on 3000...');

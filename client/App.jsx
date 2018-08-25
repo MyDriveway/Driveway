@@ -4,6 +4,7 @@ import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
 import Snackbar from '@material-ui/core/Snackbar';
+import Logout from './components/Logout.jsx'
 
 
 import Login from './containers/Login.jsx';
@@ -20,15 +21,28 @@ const mapDispatchToProps = dispatch => ({
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.logout = this.logout.bind(this);
   }
 
   // -----> wait for logout button
-  // componentWillMount() {
-  //   fetch('/checkForSession')
-  //   .then((response) => {
-  //     if (response.status === 200) this.props.setLogin(true);
-  //   }).catch((err) => console.log(err));
-  // }
+  componentWillMount() {
+    fetch('/checkForSession')
+    .then((response) => {
+      if (response.status === 200) this.props.setLogin(true);
+    }).catch((err) => console.log(err));
+  }
+
+  logout(e) {
+    e.preventDefault();
+    fetch('/endSession')
+    .then(response => {
+      this.props.setLogin(false);
+    }).catch(err => {
+      this.props.setLogin(false);
+      console.log(err);
+    })
+  }
 
   render() {
     const style = {
@@ -47,14 +61,15 @@ class App extends Component {
 
     return (
       <div>
-        {this.props.loggedIn ? (
-        <div class="bgimage">
+        {this.props.loggedIn ? (  //if session exists render main page
+        <div className="bgimage">
           <div id="app-container">
             <div className='componentWrapper'>
               <div className='flexRow' style={{height: '125px'}}>
                 {window.innerWidth > 700 && <div style={{width: '150px'}}/>}
                 <h1 style={style.title}>Driveway</h1>
                 <AddDriveway />
+                <Logout onClick={this.logout}/>
               </div>
               <div className="flexRow">
                 <Results />
@@ -66,31 +81,13 @@ class App extends Component {
             </div>
           </div>
         </div>
-      ) : (
+      ) : ( // if no session exists, render login page
         <div>
-             <Login />
+          <Login />
         </div>
         )}
       </div>
     );
-
-  // render() {
-  //   if (this.props.loggedIn) {
-  //     return (
-  //       <div id="app-container">
-  //         <AddDriveway />
-  //         <GoogleMapsContainer />
-  //         <Results />
-  //       </div>
-  //     );
-  //   } else {
-  //     return (
-  //       <div>
-  //         <Login />
-  //       </div>
-  //     );
-  //   }
-  // }
   }
 }
 
