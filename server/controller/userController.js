@@ -14,8 +14,8 @@ module.exports = {
     })
   },
 
+  // searches db by username, runs password through bcrypt to compare
   attemptLogin: (req, res, next) => {
-    //will only be able to search by username once encrypting included
     User.findOne({username: req.body.username}, function (err, result) {
       if (err) {
         next(err);
@@ -37,12 +37,14 @@ module.exports = {
     })
   },
 
+  // creates cookie with user id from schema
   setSSIDCookie: (req, res, next) => {
     res.cookie('ssid', res.locals, { httpOnly: true });
     res.sendStatus(200);
     next();
   },
 
+  // create a session
   startSession: (req, res, next) => {
     const newSession = new Session({
       cookieId: res.locals

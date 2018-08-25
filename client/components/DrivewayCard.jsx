@@ -58,7 +58,6 @@ class MediaCard extends Component {
             <br />
             Hourly Rate: ${this.props.obj.rateHour}
             <br />
-            Index: {this.props.obj._id}
           </Typography>
         </CardContent>
         <CardActions>
@@ -66,9 +65,6 @@ class MediaCard extends Component {
             onClick={this.onShowOnMapClick}
           > 
             Show On Map
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
           </Button>
         </CardActions>
       </Card>
