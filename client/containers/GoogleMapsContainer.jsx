@@ -61,5 +61,5 @@ class GoogleMapsContainer extends React.Component {
   }
 }
 // actual API needs to be substituted in
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: 'AIzaSyALsPkcR2ebrrWQt1HVj1YdgdO0RAyoBuQ'})(GoogleMapsContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: 'dummy'})(GoogleMapsContainer));
 

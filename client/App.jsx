@@ -26,7 +26,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  // -----> wait for logout button
+  // navigates away from login page if a session already exists
   componentWillMount() {
     fetch('/checkForSession')
     .then((response) => {
@@ -34,6 +34,7 @@ class App extends Component {
     }).catch((err) => console.log(err));
   }
 
+  // deletes a session navigates user to login page
   logout(e) {
     e.preventDefault();
     fetch('/endSession')
