@@ -2,3 +2,4 @@
 
 export const SELECT_MARKER = 'SELECT_MARKER';
 export const DESELECT = 'DESELECT';
+export const SET_LOGIN = 'SET_LOGIN';

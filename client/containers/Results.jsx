@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 //import actions from action creators file
 import * as actions from '../actions/actions';
 import Card from '../components/DrivewayCard.jsx';
+
 //grab state from search
 const mapStateToProps = store => ({
   address: store.searches.address,

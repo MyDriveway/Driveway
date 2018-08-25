@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-import Paper from 'material-ui/Paper';
-// import Typography from 'material-ui/Typography';
-// import { typography } from 'material-ui/styles';
 
 const mapStateToProps = (store, ownProps) => ({
   // provide pertinent state here
@@ -56,7 +53,7 @@ class GoogleMapsContainer extends React.Component {
         style = { style }
         google = { this.props.google }
         onClick = { this.onMapClick }
-        zoom = { 14 }
+        zoom = { 12 }
         initialCenter = {{ lat: 39.648209, lng: -75.711185 }}
       >
         {markers}
