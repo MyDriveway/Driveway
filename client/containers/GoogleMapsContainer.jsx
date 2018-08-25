@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
-import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 
 // to get the google api
 import { API } from '../../clientENV/api.js'
@@ -42,23 +42,29 @@ class GoogleMapsContainer extends React.Component {
     //create an array of the Marker components
     const markers = this.props.allMarkers.map((marker, i) => (
       <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
-    ))
+    ));
 
-    return (
-        <Map
-          item
-          xs = { 6 }
-          style = { style }
-          google = { this.props.google }
-          onClick = { this.props.onMapClick }
-          zoom = { 11 }
-          initialCenter = {{ lat: 34.05223, lng: -118.24368 }}
-        >
-          {markers}
-        </Map>
+    const GoogleMapComponent = withScriptjs(withGoogleMap(props => (
+      <GoogleMap
+        defaultZoom={12}
+        defaultCenter={{ lat: 34.05223, lng: -118.24368 }}
+      >
+        {markers}
+      </GoogleMap>
+    )));
+
+    return(
+      <div>
+        <GoogleMapComponent
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API}`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+      </div>
     );
   }
 }
-// actual API needs to be substituted in
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: API })(GoogleMapsContainer));
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleMapsContainer);
 
