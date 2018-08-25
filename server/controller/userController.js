@@ -5,7 +5,7 @@ module.exports = {
   createAccount: (req, res, next) => {
     const newUser = new User(req.body);
     newUser.save((err, response) => {
-      if (err) console.log(err);
+      if (err) next(err);
       else {
         res.locals = response._id;
         next();
@@ -47,18 +47,26 @@ module.exports = {
     });
     newSession.save((err, result) => {
       if (err) {
-        console.log(err);
+        next(err);
       }
     })
   },
 
   checkForSession: (req, res, next) => {
     Session.findOne({}, (err, result) => {
-      if (result) {
+      if (err) next(err);
+      else if (result) {
         res.sendStatus(200);
       } else {
         res.sendStatus(404);
       }
+    })
+  },
+
+  endSession: (req, res, next) => {
+    Session.deleteMany({}, (err, result) => {
+      if (err) next(err);
+      res.sendStatus(200);
     })
   }
 } 
