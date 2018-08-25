@@ -60,10 +60,10 @@ class App extends Component {
               </div>
               <div className="flexRow">
                 <Results />
-                {/* <div >
+                <div >
                   <GoogleMapsContainer />
-                </div> */}
-                <div style={style.fakeMap}>test</div>
+                </div>
+                {/* <div style={style.fakeMap}>test</div> */}
               </div>
             </div>
           </div>
