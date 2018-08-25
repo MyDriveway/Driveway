@@ -1,12 +1,14 @@
 require('dotenv/config');
 
 const express = require('express');
+const app = express();
+
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const Driveways = require('./models/driveways.js');
 const routes = require('./routes')
-const app = express();
 const userController = require('./controller/userController');
 
 const googleMapsClient = require('@google/maps').createClient({
@@ -54,6 +56,7 @@ mongoose.connect(process.env.MONGO_URL, (err, db) => {
 
 app.use(express.static(path.join(__dirname +'./../'))); //serves the index.html
 app.use(bodyParser.json())
+app.use(cookieParser());
 
 app.get('/checkForSession', userController.checkForSession);
 app.get('/endSession', userController.endSession);
@@ -76,9 +79,10 @@ app.post('/searchAddress', (req, res) => {
     res.status(200).json(data);
   })
 })
-// app.use((err, req, res, next) => {
-//   //res.render(err);
-// })
+
+app.use((err, req, res, next) => {
+  console.log(err);
+})
 
 app.listen(3000, () => {
   console.log('Listening on 3000...');

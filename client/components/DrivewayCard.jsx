@@ -32,12 +32,15 @@ const mapDispatchToProps = dispatch => ({
 class MediaCard extends Component {
   constructor(props) {
     super(props);
+
+    this.onShowOnMapClick = this.onShowOnMapClick.bind(this);
   }
 
-  onShowOnMapClick(props) {
+  onShowOnMapClick() {
     //props.obj is the obj containing all the info of that driveway
     //props.key gives the unique _id from the database
-    this.props.dispatchOnMarkerClick(props);
+    console.log('inside mapclick', this.props.obj);
+    this.props.dispatchOnMarkerClick(this.props.obj.geometry);
   }
 
   render() {

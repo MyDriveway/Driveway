@@ -26,14 +26,15 @@ class App extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  // -----> wait for logout button
-  componentWillMount() {
-    fetch('/checkForSession')
-    .then((response) => {
-      if (response.status === 200) this.props.setLogin(true);
-    }).catch((err) => console.log(err));
-  }
+  // navigates away from login page if a session already exists
+  // componentWillMount() {
+  //   fetch('/checkForSession')
+  //   .then((response) => {
+  //     if (response.status === 200) this.props.setLogin(true);
+  //   }).catch((err) => console.log(err));
+  // }
 
+  // deletes a session navigates user to login page
   logout(e) {
     e.preventDefault();
     fetch('/endSession')
@@ -47,38 +48,31 @@ class App extends Component {
 
   render() {
     const style = {
-      title: {
-        fontSize: '3.5em',
-        color: '#f4f4f4',
-        letterSpacing: '5px',
-        fontFamily: 'cursive'
-      },
-      fakeMap: {
-        width: '45%',
-        height: '80vh',
-        backgroundColor: 'black'
+      logo: {
+        width: '60px'
       }
     }
 
     return (
       <div>
-        {this.props.loggedIn ? (  //if session exists render main page
+        {!this.props.loggedIn ? (
         <div className="bgimage">
-          <div id="app-container">
-            <div className='componentWrapper'>
-              <div className='flexRow' style={{height: '125px'}}>
-                {window.innerWidth > 700 && <div style={{width: '150px'}}/>}
-                <h1 style={style.title}>Driveway</h1>
-                <SearchBar />
-                <AddDriveway />
+          <div id="app-container" >
+            <div className='componentWrapper' className='flexColumn'>
+              <div className='flexRow header'>
+                <img style={style.logo} src='./image/logo.png'/>
+                <h1 className='title'>Driveway</h1>
                 <Logout onClick={this.logout}/>
               </div>
-              <div className="flexRow">
-                <Results />
-                <div >
+              <div className='flexRow inputSection'>
+               <AddDriveway />
+                <SearchBar />
+              </div>
+              <div className="flexRow" style={{width: '100%'}}>
+                <div className='mapWrapper'>
                   <GoogleMapsContainer />
                 </div>
-                {/* <div style={style.fakeMap}>test</div> */}
+                <Results />
               </div>
             </div>
           </div>

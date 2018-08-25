@@ -21,6 +21,9 @@ const mapReducer = (state=initialState, action) => {
   switch(action.type) {
 
     case types.SELECT_MARKER:
+
+      console.log('inside selectmarket', action.payload.coordinates)
+      
       selectedMarker = action.payload;
       allMarkers = state.allMarkers;
       return {
