@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
+import Snackbar from '@material-ui/core/Snackbar';
+
+
 import Login from './containers/Login.jsx';
 import * as actions from './actions/actions'
 
@@ -19,7 +22,7 @@ class App extends Component {
     super(props);
   }
 
-  // wait for logout button
+  // -----> wait for logout button
   // componentWillMount() {
   //   fetch('/checkForSession')
   //   .then((response) => {
@@ -28,21 +31,66 @@ class App extends Component {
   // }
 
   render() {
-    if (this.props.loggedIn) {
-      return (
-        <div id="app-container">
-          <AddDriveway />
-          <GoogleMapsContainer />
-          <Results />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Login />
-        </div>
-      );
+    const style = {
+      title: {
+        fontSize: '3.5em',
+        color: '#f4f4f4',
+        letterSpacing: '5px',
+        fontFamily: 'cursive'
+      },
+      fakeMap: {
+        width: '45%',
+        height: '80vh',
+        backgroundColor: 'black'
+      }
     }
+
+    return (
+      <div>
+        {this.props.loggedIn ? (
+        <div class="bgimage">
+          <div id="app-container">
+            <div className='componentWrapper'>
+              <div className='flexRow' style={{height: '125px'}}>
+                {window.innerWidth > 700 && <div style={{width: '150px'}}/>}
+                <h1 style={style.title}>Driveway</h1>
+                <AddDriveway />
+              </div>
+              <div className="flexRow">
+                <Results />
+                {/* <div >
+                  <GoogleMapsContainer />
+                </div> */}
+                <div style={style.fakeMap}>test</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+             <Login />
+        </div>
+        )}
+      </div>
+    );
+
+  // render() {
+  //   if (this.props.loggedIn) {
+  //     return (
+  //       <div id="app-container">
+  //         <AddDriveway />
+  //         <GoogleMapsContainer />
+  //         <Results />
+  //       </div>
+  //     );
+  //   } else {
+  //     return (
+  //       <div>
+  //         <Login />
+  //       </div>
+  //     );
+  //   }
+  // }
   }
 }
 

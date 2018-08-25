@@ -35,10 +35,9 @@ class GoogleMapsContainer extends React.Component {
 
   render() {
     const style = {
-      width: '90%',
-      height: '55vh',
-      'marginLeft': 'auto',
-      'marginRight': 'auto'
+      width: '45%',
+      height: '80vh',
+      position: 'relative'
     }
 
     //create an array of the Marker components
@@ -47,20 +46,20 @@ class GoogleMapsContainer extends React.Component {
     ))
 
     return (
-      <Map
-        item
-        xs = { 6 }
-        style = { style }
-        google = { this.props.google }
-        onClick = { this.onMapClick }
-        zoom = { 12 }
-        initialCenter = {{ lat: 39.648209, lng: -75.711185 }}
-      >
-        {markers}
-      </Map>
+        <Map
+          item
+          xs = { 6 }
+          style = { style }
+          google = { this.props.google }
+          onClick = { this.onMapClick }
+          zoom = { 14 }
+          initialCenter = {{ lat: 39.648209, lng: -75.711185 }}
+        >
+          {markers}
+        </Map>
     );
   }
 }
 // actual API needs to be substituted in
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: process.env.GOOGLE_API})(GoogleMapsContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: 'AIzaSyALsPkcR2ebrrWQt1HVj1YdgdO0RAyoBuQ'})(GoogleMapsContainer));
 
