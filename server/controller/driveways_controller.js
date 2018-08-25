@@ -24,7 +24,7 @@ module.exports = {
                         if (err) return res.status(500).json({ error: err});
                         return res.status(200).json(newDriveway)
                     })
-                   });
+                  });
             } else {
                 return res.status(400).json({
                     error: 'Address has an active posting.'

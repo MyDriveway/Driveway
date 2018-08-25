@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-import Paper from 'material-ui/Paper';
-import { relative } from 'path';
-// import Typography from 'material-ui/Typography';
-// import { typography } from 'material-ui/styles';
 
 const mapStateToProps = (store, ownProps) => ({
   // provide pertinent state here
