@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import SearchBar from './containers/SearchBar.jsx';
 import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
@@ -68,15 +69,16 @@ class App extends Component {
               <div className='flexRow' style={{height: '125px'}}>
                 {window.innerWidth > 700 && <div style={{width: '150px'}}/>}
                 <h1 style={style.title}>Driveway</h1>
+                <SearchBar />
                 <AddDriveway />
                 <Logout onClick={this.logout}/>
               </div>
               <div className="flexRow">
                 <Results />
-                {/* <div >
+                <div >
                   <GoogleMapsContainer />
-                </div> */}
-                <div style={style.fakeMap}>test</div>
+                </div>
+                {/* <div style={style.fakeMap}>test</div> */}
               </div>
             </div>
           </div>

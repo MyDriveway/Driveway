@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux';
-//import all reducers here
-import searchesReducer from './searchesReducer';
 import mapReducer from './mapReducer';
 import loginReducer from './loginReducer';
+import searchReducer from './searchReducer';
 
 //combine reducers
 const reducers = combineReducers({
-  searches: searchesReducer,
+  searches: searchReducer,
   map: mapReducer,
   login: loginReducer
 });
