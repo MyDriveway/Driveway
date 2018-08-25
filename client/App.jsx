@@ -19,12 +19,13 @@ class App extends Component {
     super(props);
   }
 
-  componentWillMount() {
-    fetch('/checkForSession')
-    .then((response) => {
-      if (response.status === 200) this.props.setLogin(true);
-    }).catch((err) => console.log(err));
-  }
+  // wait for logout button
+  // componentWillMount() {
+  //   fetch('/checkForSession')
+  //   .then((response) => {
+  //     if (response.status === 200) this.props.setLogin(true);
+  //   }).catch((err) => console.log(err));
+  // }
 
   render() {
     if (this.props.loggedIn) {

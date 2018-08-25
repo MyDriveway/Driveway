@@ -13,11 +13,6 @@ mongoose.connect(process.env.MONGO_URL, (err, db) => {
   console.log("connected to driveway database");
 })
 
-mongoose.connect(process.env.USER_MONGO_URL, (err, db) => {
-  if(err) console.error(err);
-  console.log("connected to user database");
-})
-
 app.use(express.static(path.join(__dirname +'./../'))); //serves the index.html
 app.use(bodyParser.json())
 
