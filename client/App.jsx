@@ -18,7 +18,8 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   setLogin: (bool) => dispatch(actions.setLogin(bool)),
-  setCurrLocation: (currLocation) => dispatch(actions.setCurrLocation(currLocation))
+  setCurrLocation: (currLocation) => dispatch(actions.setCurrLocation(currLocation)),
+  addLocations: locations => dispatch(actions.addLocations(locations)),
 })
 
 class App extends Component {
@@ -38,7 +39,10 @@ class App extends Component {
           const { latitude, longitude } = position.coords;
           fetch(`/api/search/${longitude}/${latitude}`)
             .then(response => response.json())
-            .then(data => this.props.setCurrLocation({latitude: latitude, longitude: longitude}))
+            .then(data => {
+              this.props.setCurrLocation({latitude: latitude, longitude: longitude})
+              this.props.addLocations(data)
+            })
             .catch(err => console.error(err))
         }
       )

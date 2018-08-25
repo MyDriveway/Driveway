@@ -61,7 +61,7 @@ app.get('/searchAddress/:address', (req, res) => {
           }
         ], (err, result) => {
           if(err) return res.status(500).send(err);
-          const fullResults = Object.assign({}, result, coords)
+          const fullResults = { results: result, coords }
   
           res.send(JSON.stringify(fullResults));
         }
