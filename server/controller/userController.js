@@ -14,8 +14,8 @@ module.exports = {
     })
   },
 
+  // searches db by username, runs password through bcrypt to compare
   attemptLogin: (req, res, next) => {
-    //will only be able to search by username once encrypting included
     User.findOne({username: req.body.username}, function (err, result) {
       if (err) {
         next(err);
@@ -37,12 +37,14 @@ module.exports = {
     })
   },
 
+  // creates cookie with user id from schema
   setSSIDCookie: (req, res, next) => {
     res.cookie('ssid', res.locals, { httpOnly: true });
     res.sendStatus(200);
     next();
   },
 
+  // create a session
   startSession: (req, res, next) => {
     const newSession = new Session({
       cookieId: res.locals
@@ -68,9 +70,8 @@ module.exports = {
     }
   },
 
-  // On user logout, delete their session from the database. There should
-  // only ever be one session at a time in the db, but I use deleteMany just 
-  // in case a sneaky second one gets in
+  // On user logout, delete their session from the database. There can be multiple sessions
+  // for multiple users, but for now if someone logs out, we will remove everyone's session
   endSession: (req, res, next) => {
     Session.deleteMany({}, (err, result) => {
       if (err) next(err);

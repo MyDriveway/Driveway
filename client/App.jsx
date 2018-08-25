@@ -4,10 +4,7 @@ import SearchBar from './containers/SearchBar.jsx';
 import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
-import Snackbar from '@material-ui/core/Snackbar';
 import Logout from './components/Logout.jsx'
-
-
 import Login from './containers/Login.jsx';
 import * as actions from './actions/actions'
 
@@ -19,7 +16,7 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   setLogin: (bool) => dispatch(actions.setLogin(bool)),
   setCurrLocation: (currLocation) => dispatch(actions.setCurrLocation(currLocation)),
-  addLocations: locations => dispatch(actions.addLocations(locations)),
+  setMarkers: locations => dispatch(actions.setMarkers(locations)),
 })
 
 class App extends Component {
@@ -28,7 +25,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  // navigates away from login page if a session already exists
+  // navigates away from login page if a session already exists, also sets current location
   componentDidMount() {
     fetch('/checkForSession')
     .then((response) => {
@@ -40,9 +37,23 @@ class App extends Component {
           fetch(`/api/search/${longitude}/${latitude}`)
             .then(response => response.json())
             .then(data => {
-              this.props.setCurrLocation({latitude: latitude, longitude: longitude})
-              this.props.addLocations(data)
-            })
+              this.props.setCurrLocation({latitude: latitude, longitude: longitude});
+
+              //not totally working?
+              let markers = []
+              if (data) {
+                data.forEach((driveway, i) => {
+                  //creating the marker objects for the map
+                  const lat = driveway.geometry.coordinates[1];
+                  const lng = driveway.geometry.coordinates[0];
+                  markers.push({
+                    id: driveway._id, 
+                    position: { lat, lng },
+                  })
+              this.props.setMarkers(markers);
+              })
+            }
+          })
             .catch(err => console.error(err))
         }
       )
@@ -71,7 +82,6 @@ class App extends Component {
 
     return (
       <div>
-         {/* to bypass the login page, add '!' before this.props.loggedIn */}
         {this.props.loggedIn ? ( // if a session exists then go straight to map page
         <div className="bgimage">
           <div id="app-container" >

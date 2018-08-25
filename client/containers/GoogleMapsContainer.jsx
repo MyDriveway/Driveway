@@ -30,9 +30,12 @@ class GoogleMapsContainer extends React.Component {
 
   onMarkerClick(marker) {
     const id = marker.id; //broken---------------------------
+    // when we click on a marker on the map, the return object doesn't have
+    // the id value that I was trying to pass in
     this.props.dispatchOnMarkerClick(id);
   }
 
+  // unnecessary, can go straight to dispatch
   onMapClick (props) {
     this.props.dispatchOnMapClick();
   }
@@ -51,10 +54,11 @@ class GoogleMapsContainer extends React.Component {
       <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
     ));
 
+    //this can eventually go in it's on file as a component
     const GoogleMapComponent = withScriptjs(withGoogleMap(props => (
       <GoogleMap
-        defaultZoom={12}
-        defaultCenter={{ lat: 34.05223, lng: -118.24368 }}
+        defaultZoom={13}
+        defaultCenter={{ lat: 33.9850, lng: -118.4695 }}
       >
         {markers}
       </GoogleMap>

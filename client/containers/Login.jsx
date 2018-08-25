@@ -20,6 +20,8 @@ class Login extends Component {
 
   login(e) {
     e.preventDefault();
+
+    //getting input values and creating an object with them
     const username = document.getElementById('username-login');
     const password = document.getElementById('password-login');
     
@@ -29,12 +31,13 @@ class Login extends Component {
         password: password.value
       }
 
+      //post request with user login info
       fetch('/login', {
         headers: {'Content-Type': 'application/json'},
         method: 'POST',
         body: JSON.stringify(newLogin)
       }).then(response => {
-        if (response.status === 200) this.props.setLogin(true);
+        if (response.status === 200) this.props.setLogin(true); // will cause page rerender
         else {
           username.value = '';
           password.value = '';
@@ -47,6 +50,8 @@ class Login extends Component {
 
   signup(e) {
     e.preventDefault();
+
+    //getting input values and creating an object with them
     const username = document.getElementById('username-signup');
     const password = document.getElementById('password-signup');
 
@@ -56,6 +61,7 @@ class Login extends Component {
         password: password.value
       }
 
+      //post request with user signup info
       fetch('/signup', {
         headers: {'Content-Type': 'application/json'},
         method: 'POST',

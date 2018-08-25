@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
 
 const SALT_WORK_FACTOR = 10;
 
+// automatically encrypts password
 userSchema.pre('save', function(next) {
   const that = this;
   bcrypt.hash(that.password, SALT_WORK_FACTOR)
@@ -19,6 +20,7 @@ userSchema.pre('save', function(next) {
   })
 })
 
+// check user input password with actual password 
 userSchema.methods.checkPassword = function(password) {
   const that = this;
   return new Promise(function(resolve, reject) {

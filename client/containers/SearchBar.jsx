@@ -5,7 +5,6 @@ import Input from '@material-ui/core/Input';
 import * as actions from '../actions/actions';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-//import child components
 
 const styles = theme => ({
   button: {
@@ -50,31 +49,12 @@ class SearchBar extends Component {
   handleSearch(event) {
     event.preventDefault();    
     const input = this.props.userInput;
-    // const result= {};
-    // check first element of input to distinguish from address, city, or zipcode
-    // if first element of the userinput is not a number, it's a city
-    // if(isNaN(parseInt(input.charAt(0)))) {
-    //   console.log('grabbing city..', input);
-    //   // grab city
-    //   result.city = input;
-    // }else {
-    //   // check the length of the userInput to distinguish zipcode or street address
-    //   // if > 5, street address
-    //   if(input.length > 5) {
-    //     // grab address
-    //     result.address = input;
-    //   }else {
-    //     // grab zipcode
-    //     result.zip = Number(input);
-    //   }
-    // }
-        
+    
     fetch(`/searchAddress/${input}`)
     .then(response => response.json())
     .then(data => {
-      console.log('data hereeee', data);
-      this.props.addLocations(data.results)
-      this.props.currLocation(data.coords)
+      this.props.addLocations(data.results);
+      this.props.currLocation(data.coords);
     })
     .catch(err => {
       return err;

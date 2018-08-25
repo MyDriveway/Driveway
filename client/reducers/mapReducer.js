@@ -1,9 +1,9 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  allMarkers: [],
-  selectedMarker: null,
-  currLocation: {}
+  allMarkers: [], // list of all markers we want to put on the map
+  selectedMarker: null, // the object details of a marker we select on map
+  currLocation: {}  //our current location
 }
 
 const mapReducer = (state=initialState, action) => {
@@ -21,14 +21,10 @@ const mapReducer = (state=initialState, action) => {
 
     case types.SELECT_MARKER:
       // find the selected marker in the arrary of all markers by the marker id
-      // console.log("what we are looking for: ", action.payload);
-      console.log('inside selectmarket', action.payload);
       selectedMarker = state.allMarkers.reduce((final, marker) => {
-        console.log('marker.id: ', marker.id);
         if (action.payload === marker.id) final = marker;
         return final;
       }, null);
-      console.log("selectedMarker", selectedMarker);
       return {
         allMarkers,
         selectedMarker
