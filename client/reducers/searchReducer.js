@@ -1,5 +1,7 @@
 import * as types from '../constants/actionTypes';
 
+// this file potentially redundant, two of us tried to do similar things,
+// please reference mapReducer and not this file
 const initialState = {
   userInput: '',
   locations: []

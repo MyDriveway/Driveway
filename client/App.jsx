@@ -16,7 +16,7 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   setLogin: (bool) => dispatch(actions.setLogin(bool)),
   setCurrLocation: (currLocation) => dispatch(actions.setCurrLocation(currLocation)),
-  addLocations: locations => dispatch(actions.addLocations(locations)),
+  setMarkers: locations => dispatch(actions.setMarkers(locations)),
 })
 
 class App extends Component {
@@ -37,9 +37,23 @@ class App extends Component {
           fetch(`/api/search/${longitude}/${latitude}`)
             .then(response => response.json())
             .then(data => {
-              this.props.setCurrLocation({latitude: latitude, longitude: longitude})
-              this.props.addLocations(data)
-            })
+              this.props.setCurrLocation({latitude: latitude, longitude: longitude});
+
+              //not totally working?
+              let markers = []
+              if (data) {
+                data.forEach((driveway, i) => {
+                  //creating the marker objects for the map
+                  const lat = driveway.geometry.coordinates[1];
+                  const lng = driveway.geometry.coordinates[0];
+                  markers.push({
+                    id: driveway._id, 
+                    position: { lat, lng },
+                  })
+              this.props.setMarkers(markers);
+              })
+            }
+          })
             .catch(err => console.error(err))
         }
       )

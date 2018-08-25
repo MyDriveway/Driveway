@@ -53,9 +53,8 @@ class SearchBar extends Component {
     fetch(`/searchAddress/${input}`)
     .then(response => response.json())
     .then(data => {
-      console.log('data hereeee', data);
-      this.props.addLocations(data.results)
-      this.props.currLocation(data.coords)
+      this.props.addLocations(data.results);
+      this.props.currLocation(data.coords);
     })
     .catch(err => {
       return err;
