@@ -4,7 +4,8 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Driveways = './models/driveways.js';
+const Driveways = require('./models/driveways.js');
+const routes = require('./routes')
 
 const googleMapsClient = require('@google/maps').createClient({
   key: process.env.GOOGLE_API
@@ -20,12 +21,40 @@ mongoose.connect(process.env.MONGO_URL, (err, db) => {
 });
 
 // grabs the lat long
-googleMapsClient.geocode({address: '91755'}, (err, response) => {
-    if(!err) console.log(response.json.results[0].geometry.location)
-  }
-);
+// googleMapsClient.geocode({address: '91755'}, (err, response) => {
+//     if(!err) console.log(response.json.results[0].geometry.location)
+    
+//     const coords = response.json.results[0].geometry.location;
+
+//     Driveways.aggregate(
+//       [
+//         {
+//           $geoNear: {
+//             near: {
+//               type: 'Point',
+//               coordinates: [parseFloat(coords.lng), parseFloat(coords.lat)]
+//             },
+//             maxDistance: parseFloat(8050),
+//             spherical: true,
+//             distanceField: 'dist'
+//           }
+//         }
+//       ], (err, result) => {
+//         if(err) return res.status(500).send(err);
+
+//         res.send(JSON.stringify(result));
+//       }
+//     )
+//   }
+// );
+
+
+
 
 app.use(express.static(path.join(__dirname +'./../'))); //serves the index.html
+app.use(bodyParser.json())
+
+routes(app)
 
 app.post('/searchAddress', (req, res) => {
   // find the address
@@ -37,7 +66,7 @@ app.post('/searchAddress', (req, res) => {
     console.log('inside find', data);
     if(error) return res.status(500).send(error);
     
-    res.status(200).send(data);
+    res.status(200).json(data);
   })
 })
 

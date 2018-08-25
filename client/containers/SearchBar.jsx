@@ -26,11 +26,11 @@ class SearchBar extends Component {
   // make a post request to extract actual address from google maps through the backend
   handleSearch(event) {
     event.preventDefault();    
-    const input = this.props.userInput;
+    const input = this.props.userInput.toLowerCase();
     const result= {};
     // check first element of input to distinguish from address, city, or zipcode
     // if first element of the userinput is not a number, it's a city
-    console.log('parsing a', parseInt('a'));
+    console.log('initial handle search', input);
     if(isNaN(parseInt(input.charAt(0)))) {
       // grab city
       result.city = input;
@@ -45,28 +45,22 @@ class SearchBar extends Component {
         result.zip = Number(input);
       }
     }
-
+    
     console.log('result inside client side', result);
-
+    
     fetch('/searchAddress', 
-      {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(result)
-      })
-      .then(response => {
-          // I should be getting back some result of an object, empty, array of objects?
-          console.log('getting the response back from server', response.data);
-          return response.data;
-        })
-      .then(response => {
-          this.props.addLocations(response.data);
-        })
-      .catch(err => {
-        return err;
-      })
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(result)
+    })
+    .then(response => response.json())
+    .then(data => this.props.addLocations(data))
+    .catch(err => {
+      return err;
+    })
   }
-      
+  
   // set the state for the user's input from the search bar
   handleChange(event) {
     console.log(`input ${event.target.value}`);

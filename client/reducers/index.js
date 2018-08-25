@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
-//import all reducers here
+import mapReducer from './mapReducer';
 import searchReducer from './searchReducer'
+//import all reducers here
 
 //combine reducers
 const reducers = combineReducers({
-  //
   searches: searchReducer,
+//combine reducers
+  map: mapReducer
 });
 
 export default reducers;

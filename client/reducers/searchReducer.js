@@ -3,6 +3,18 @@ import * as types from '../constants/actionTypes';
 const initialState = {
   userInput: '',
   locations: []
+  // locations: [{
+  //   address: '',
+  //   city: '',
+  //   state: '',
+  //   zip: '',
+  //   timeStart: '',
+  //   timeEnd: '',
+  //   rateDay: '',
+  //   rateHour: '',
+  //   image: '',
+  //   geometry: {coordinates: []}
+  // }]
 };
 
 const searchReducer = (state=initialState, action) => {
@@ -14,7 +26,6 @@ const searchReducer = (state=initialState, action) => {
 
     case types.ADD_LOCATIONS:
       // how to reset the array..
-      state.locations = [];
       // const oldLocations = state.locations;
       
       // const newLocations = action.payload.reduce((acc, currValue, currIndex) => {
@@ -22,11 +33,12 @@ const searchReducer = (state=initialState, action) => {
       //   acc.push(currValue);
       //   return acc;
       // }, []);
-      const newLocations = [...state.locations, ...action.payload];
+      // const newLocations = [...state.locations, ...action.payload];
+      console.log('action pay load in reducer', action);
+      const newState = Object.assign({}, state, {locations: action.payload})
 
-      return { 
-        locations: newLocations
-      }
+
+      return newState;
 
     default:
       return state;
