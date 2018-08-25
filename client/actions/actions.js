@@ -10,9 +10,9 @@ export const addLocations = (locations) => ({
   payload: locations,
 });
 
-export const selectMarker = (marker) => ({
+export const selectMarker = (id) => ({
   type: types.SELECT_MARKER,
-  payload: marker
+  payload: id
 })
 
 export const deselect = () => ({
@@ -23,4 +23,9 @@ export const deselect = () => ({
 export const setLogin = (bool) => ({
   type: types.SET_LOGIN,
   payload: bool
+})
+
+export const setMarkers = (markers) => ({
+  type: types.SET_MARKERS,
+  payload: markers
 })
