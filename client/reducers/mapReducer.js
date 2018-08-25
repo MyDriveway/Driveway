@@ -23,7 +23,7 @@ const mapReducer = (state=initialState, action) => {
       // console.log("what we are looking for: ", action.payload);
       console.log('inside selectmarket', action.payload);
       selectedMarker = state.allMarkers.reduce((final, marker) => {
-        // console.log('marker.id: ', marker.id);
+        console.log('marker.id: ', marker.id);
         if (action.payload === marker.id) final = marker;
         return final;
       }, null);

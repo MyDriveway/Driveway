@@ -31,7 +31,6 @@ class Results extends Component {
         markers.push({
           id: driveway._id, 
           position: { lat, lng },
-          display: false
         })
 
         return (

@@ -55,7 +55,7 @@ class App extends Component {
     return (
       <div>
          {/* to bypass the login page, add '!' before this.props.loggedIn */}
-        {!this.props.loggedIn ? ( // if a session exists then go straight to map page
+        {this.props.loggedIn ? ( // if a session exists then go straight to map page
         <div className="bgimage">
           <div id="app-container" >
             <div className='componentWrapper'>
