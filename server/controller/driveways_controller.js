@@ -35,7 +35,6 @@ module.exports = {
     },
 
     search(req, res) {
-        console.log('inside search', req.params);
         Driveways.aggregate(
             [
               {
