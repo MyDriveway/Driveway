@@ -14,8 +14,8 @@ const mapStateToProps = (store, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchOnMarkerClick: (props) => dispatch(actions.selectMarker(props)),
-  onMapClick: () => dispatch(actions.deselect()),
+  dispatchOnMarkerClick: (id) => dispatch(actions.selectMarker(id)),
+  dispatchOnMapClick: () => dispatch(actions.deselect()),
 });
 
 class GoogleMapsContainer extends React.Component {
@@ -24,10 +24,16 @@ class GoogleMapsContainer extends React.Component {
 
     // binding this to event-handler functions
     this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.onMapClick = this.onMapClick.bind(this);
   }
 
-  onMarkerClick(props, marker, e) {
-    this.props.dispatchOnMarkerClick(props);
+  onMarkerClick(marker) {
+    const id = marker.id; //broken---------------------------
+    this.props.dispatchOnMarkerClick(id);
+  }
+
+  onMapClick (props) {
+    this.props.dispatchOnMapClick();
   }
 
   render() {
@@ -41,7 +47,7 @@ class GoogleMapsContainer extends React.Component {
 
     //create an array of the Marker components
     const markers = this.props.allMarkers.map((marker, i) => (
-      <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
+      <Marker key={marker.id} title={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
     ));
 
     const GoogleMapComponent = withScriptjs(withGoogleMap(props => (
