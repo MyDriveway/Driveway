@@ -47,7 +47,7 @@ class GoogleMapsContainer extends React.Component {
 
     //create an array of the Marker components
     const markers = this.props.allMarkers.map((marker, i) => (
-      <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
+        <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
     ));
 
     const GoogleMapComponent = withScriptjs(withGoogleMap(props => (
@@ -64,7 +64,7 @@ class GoogleMapsContainer extends React.Component {
         <GoogleMapComponent
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API}`}
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `400px` }} />}
+          containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
       </div>
