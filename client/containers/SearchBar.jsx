@@ -1,10 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 //import actions from action creators file
 import * as actions from '../actions/actions';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 //import child components
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+    color: '#236A62',
+    backgroundColor: '#f4f4f4',
+    height: 36,
+    borderRadius: '5px',
+    width: '30vw'
+  }
+});
 
 const mapStateToProps = store => ({
   userInput: store.searches.userInput,
@@ -70,24 +90,25 @@ class SearchBar extends Component {
   }
 
   render() { 
+    const { classes } = this.props;
     const style = {
       text: {
-        marginTop: '-10px'
+        marginTop: '-10px',
       }
     }
     return(
       <div className='flexRow'>
         <form onSubmit={this.handleSearch} className='flexRow'>
-          <TextField
-              label='Driveway'
+          <Input
+              placeholder='Driveway'
               onChange={this.handleChange}
               margin='none'
-              style={style.text}
+              className={classes.textField}
           />
-          <Button type='submit'>Search</Button>
+          <Button variant="contained" type='submit' style={{marginLeft: '2.5'}}>Search</Button>
         </form>
       </div>
     )
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SearchBar));

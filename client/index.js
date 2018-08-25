@@ -5,7 +5,6 @@ import store from './store.js';
 import App from './App.jsx';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-
 const theme = createMuiTheme({
   palette: {
     primary: {
