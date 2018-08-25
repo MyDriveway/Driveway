@@ -1,31 +1,33 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  allMarkers: [
-    {
-      position: { lat: 39.648209, lng: -75.711185 },
-      display: false
-    },
-    {
-      position: { lat: 39.658209, lng: -75.731185 },
-      display: false
-    },
-  ],
+  allMarkers: [],
   selectedMarker: null
 }
 
 const mapReducer = (state=initialState, action) => {
-  let selectedMarker;
-  let allMarkers;
+  let selectedMarker = state.selectedMarker;
+  let allMarkers = state.allMarkers;
 
   switch(action.type) {
 
-    case types.SELECT_MARKER:
+    case types.SET_MARKERS:
+      allMarkers = action.payload;
+      return {
+        allMarkers,
+        selectedMarker
+      }
 
-      console.log('inside selectmarket', action.payload.coordinates)
-      
-      selectedMarker = action.payload;
-      allMarkers = state.allMarkers;
+    case types.SELECT_MARKER:
+      // find the selected marker in the arrary of all markers by the marker id
+      // console.log("what we are looking for: ", action.payload);
+      console.log('inside selectmarket', action.payload);
+      selectedMarker = state.allMarkers.reduce((final, marker) => {
+        // console.log('marker.id: ', marker.id);
+        if (action.payload === marker.id) final = marker;
+        return final;
+      }, null);
+      console.log("selectedMarker", selectedMarker);
       return {
         allMarkers,
         selectedMarker
@@ -33,7 +35,6 @@ const mapReducer = (state=initialState, action) => {
       
     case types.DESELECT:
       selectedMarker = null;
-      allMarkers = state.allMarkers;
       return {
         allMarkers,
         selectedMarker

@@ -10,9 +10,9 @@ const mapStateToProps = store => ({
   locations: store.searches.locations,
 });
 
-const mapDispatchToProps = dispatch => ({});
-//try to style this Results container so that its size is flexible
-//between a min width and a max width
+const mapDispatchToProps = dispatch => ({
+  setMarkers: (markers) => dispatch(actions.setMarkers(markers))
+});
 
 class Results extends Component {
   constructor(props) {
@@ -20,14 +20,32 @@ class Results extends Component {
   }
   
   render() {
-    console.log('location stuff', this.props);
+    let cards = [];
+    let markers = []
+    if (this.props.locations) {
+      //creating the cards
+      cards = this.props.locations.map((driveway, i) => {
+        //creating the marker objects for the map
+        const lat = driveway.geometry.coordinates[1];
+        const lng = driveway.geometry.coordinates[0];
+        markers.push({
+          id: driveway._id, 
+          position: { lat, lng },
+          display: false
+        })
+
+        return (
+          <Card obj={driveway} key={i}/>
+        )
+      })
+    }
+
+    //send the marker objects to the store
+    this.props.setMarkers(markers);
+
     return(
       <div className='resultsWrapper'>
-        {this.props.locations && this.props.locations.map((driveway, i) => {
-          return (
-            <Card obj={driveway} key={driveway._id}/>
-          )
-        })}
+        {cards}
       </div>
     )
   }
