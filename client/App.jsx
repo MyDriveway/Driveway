@@ -1,29 +1,33 @@
 import React, { Component } from "react";
+import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
-//import a wrapper
 import Results from './containers/Results.jsx';
 import Login from './containers/Login.jsx';
+import { connect } from 'react-redux';
+
+const mapStateToProps = store => ({
+  loggedIn: store.login.loggedIn
+})
+
+const mapDispatchToProps = dispatch => ({})
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loggedIn: false
-    }
   }
 
   render() {
-
-    if (this.state.loggedIn) {
+    if (this.props.loggedIn) {
       return (
         <div id="app-container">
+          <AddDriveway />
           <GoogleMapsContainer />
           <Results />
         </div>
       );
     } else {
       return (
-        <div id="app-container">
+        <div>
           <Login />
         </div>
       );
@@ -31,4 +35,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

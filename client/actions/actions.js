@@ -10,3 +10,8 @@ export const deselect = () => ({
   type: types.DESELECT,
   payload: null
 })
+
+export const setLogin = (bool) => ({
+  type: types.SET_LOGIN,
+  payload: bool
+})
