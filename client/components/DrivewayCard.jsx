@@ -41,8 +41,8 @@ function MediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
+        <Button size="small" color="primary"> {/*onClick={() => this.props.}*/}
+          Show On Map
         </Button>
         <Button size="small" color="primary">
           Learn More
