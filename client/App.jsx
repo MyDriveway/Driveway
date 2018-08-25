@@ -4,16 +4,26 @@ import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
 import Login from './containers/Login.jsx';
+import * as actions from './actions/actions'
 
 const mapStateToProps = store => ({
   loggedIn: store.login.loggedIn
 })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  setLogin: (bool) => dispatch(actions.setLogin(bool))
+})
 
 class App extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    fetch('/checkForSession')
+    .then((response) => {
+      if (response.status === 200) this.props.setLogin(true);
+    }).catch((err) => console.log(err));
   }
 
   render() {
