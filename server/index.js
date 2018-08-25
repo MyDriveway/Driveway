@@ -34,19 +34,17 @@ app.post('/login', userController.attemptLogin, userController.setSSIDCookie, us
 
 routes(app)
 
-app.post('/searchAddress', (req, res) => {
+app.get('/searchAddress/:address', (req, res) => {
   /* NOTE: req.body holds an object that contains the user's input from the search bar */
     // find the address
     // check whether it's a valid address search using google maps?
     // get the result back from google maps and search the 'address' through
     // the db and return back the result...whether it being empty...an array of objects..or one object?
     // check if req.body has a key of address, if it does do the geosearch
-  if(req.body.hasOwnProperty('address')){
-    googleMapsClient.geocode(req.body, (err, response) => {
-      if(!err) console.log(response.json.results[0].geometry.location)
-      
+    googleMapsClient.geocode({ address: req.params.address }, (err, response) => {
+      if(err) console.log(err)
       const coords = response.json.results[0].geometry.location;
-  
+
       Driveways.aggregate(
         [
           {
@@ -63,21 +61,13 @@ app.post('/searchAddress', (req, res) => {
           }
         ], (err, result) => {
           if(err) return res.status(500).send(err);
+          const fullResults = Object.assign({}, result, coords)
   
-          res.send(JSON.stringify(result));
+          res.send(JSON.stringify(fullResults));
         }
       )
     });
-  }else {
-    console.log('inside post request', req.body);
-    // if not, just return the result
-    Driveways.find(req.body, (error, data) => {
-      if(error) return res.status(500).send(error);
-      
-      res.status(200).json(data);
-    })
-  }
-})
+  })
 
 app.use((err, req, res, next) => {
   console.log(err);
