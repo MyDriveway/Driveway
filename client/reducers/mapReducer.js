@@ -6,22 +6,27 @@ const initialState = {
 }
 
 const mapReducer = (state=initialState, action) => {
-  let selectedMarker;
-  let allMarkers;
+  let selectedMarker = state.selectedMarker;
+  let allMarkers = state.allMarkers;
 
   switch(action.type) {
 
     case types.SET_MARKERS:
       allMarkers = action.payload;
-      selectedMarker = initialState.selectedMarker;
       return {
         allMarkers,
         selectedMarker
       }
 
     case types.SELECT_MARKER:
-      selectedMarker = action.payload;
-      allMarkers = state.allMarkers;
+      // find the selected marker in the arrary of all markers by the marker id
+      // console.log("what we are looking for: ", action.payload);
+      selectedMarker = state.allMarkers.reduce((final, marker) => {
+        // console.log('marker.id: ', marker.id);
+        if (action.payload === marker.id) final = marker;
+        return final;
+      }, null);
+
       return {
         allMarkers,
         selectedMarker
@@ -29,7 +34,6 @@ const mapReducer = (state=initialState, action) => {
       
     case types.DESELECT:
       selectedMarker = null;
-      allMarkers = state.allMarkers;
       return {
         allMarkers,
         selectedMarker
