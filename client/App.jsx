@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
 import Login from './containers/Login.jsx';
-import { connect } from 'react-redux';
 
 const mapStateToProps = store => ({
   loggedIn: store.login.loggedIn
