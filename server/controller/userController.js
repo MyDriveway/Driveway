@@ -2,6 +2,7 @@ const User = require('../models/userSchema');
 const Session = require('../models/sessionSchema')
 
 module.exports = {
+  //creates a new user schema and saves to db
   createAccount: (req, res, next) => {
     const newUser = new User(req.body);
     newUser.save((err, response) => {
@@ -53,7 +54,8 @@ module.exports = {
   },
 
   checkForSession: (req, res, next) => {
-    Session.findOne({}, (err, result) => {
+    //currently only accounts for there being a single cookie
+    Session.findOne({cookieId: req.cookies.ssid}, (err, result) => {
       if (err) next(err);
       else if (result) {
         res.sendStatus(200);

@@ -5,6 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const app = express();
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const userController = require('./controller/userController');
 
@@ -15,6 +16,7 @@ mongoose.connect(process.env.MONGO_URL, (err, db) => {
 
 app.use(express.static(path.join(__dirname +'./../'))); //serves the index.html
 app.use(bodyParser.json())
+app.use(cookieParser());
 
 app.get('/checkForSession', userController.checkForSession);
 app.get('/endSession', userController.endSession);
