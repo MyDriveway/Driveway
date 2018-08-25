@@ -18,4 +18,6 @@ const drivewayImageStorage = multer.diskStorage({
 
 module.exports = app => {
   app.post('/createDriveway', drivewayImage.single('photo'), DrivewaysController.create)
+  app.get('/api/search/:lng/:lat', DrivewaysController.search)
+
 }

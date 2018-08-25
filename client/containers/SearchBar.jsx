@@ -51,8 +51,8 @@ class SearchBar extends Component {
     const result= {};
     // check first element of input to distinguish from address, city, or zipcode
     // if first element of the userinput is not a number, it's a city
-    console.log('initial handle search', input);
     if(isNaN(parseInt(input.charAt(0)))) {
+      console.log('grabbing city..', input);
       // grab city
       result.city = input;
     }else {
@@ -66,9 +66,7 @@ class SearchBar extends Component {
         result.zip = Number(input);
       }
     }
-    
-    console.log('result inside client side', result);
-    
+        
     fetch('/searchAddress', 
     {
       method: 'POST',
@@ -84,9 +82,7 @@ class SearchBar extends Component {
   
   // set the state for the user's input from the search bar
   handleChange(event) {
-    console.log(`input ${event.target.value}`);
     this.props.addSearch(event.target.value);
-    console.log(`username hererereer ${this.props.userInput}`)
   }
 
   render() { 
