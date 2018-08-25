@@ -32,5 +32,30 @@ module.exports = {
                   })
             }
         })
+    },
+
+    search(req, res) {
+        console.log('inside search', req.params);
+        Driveways.aggregate(
+            [
+              {
+                $geoNear: {
+                  near: {
+                    type: 'Point',
+                    coordinates: [parseFloat(req.params.lng), parseFloat(req.params.lat)]
+                  },
+                  distanceField: 'dist',
+                  includeLocs: 'dist.location',
+                  maxDistance: parseFloat(8050),
+                  spherical: true,
+                }
+              }
+            ], (err, result) => {
+                console.log('result here', result);
+              if(err) return res.status(500).send(err);
+      
+              res.send(JSON.stringify(result));
+            }
+        )
     }
 }

@@ -10,6 +10,11 @@ export const addLocations = (locations) => ({
   payload: locations,
 });
 
+export const setCurrLocation = (currLocation) => ({
+  type: types.SET_CURR_LOCATION,
+  payload: currLocation
+})
+
 export const selectMarker = (marker) => ({
   type: types.SELECT_MARKER,
   payload: marker

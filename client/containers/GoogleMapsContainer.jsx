@@ -10,7 +10,8 @@ const mapStateToProps = (store, ownProps) => ({
   // provide pertinent state here
   allMarkers: store.map.allMarkers,
   selectedMarker: store.map.selectedMarker,
-  google: ownProps.google
+  google: ownProps.google,
+  currLocation: store.map.currLocation
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -50,6 +51,8 @@ class GoogleMapsContainer extends React.Component {
     ))
 
     return (
+      <div>
+        { this.props.currLocation &&
         <Map
           item
           xs = { 6 }
@@ -58,9 +61,12 @@ class GoogleMapsContainer extends React.Component {
           onClick = { this.onMapClick }
           zoom = { 11 }
           initialCenter = {{ lat: 34.05223, lng: -118.24368 }}
+          // initialCenter = {{ lat: this.props.currLocation.latitude, lng: this.props.currLocation.longitude }}
         >
           {markers}
-        </Map>
+        </Map> }
+      </div>
+        
     );
   }
 }
