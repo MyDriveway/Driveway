@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
-import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 
 // to get the google api
 import { API } from '../../clientENV/api.js'
@@ -15,7 +15,7 @@ const mapStateToProps = (store, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchOnMarkerClick: (props) => dispatch(actions.selectMarker(props)),
+  dispatchOnMarkerClick: (id) => dispatch(actions.selectMarker(id)),
   dispatchOnMapClick: () => dispatch(actions.deselect()),
 });
 
@@ -28,8 +28,9 @@ class GoogleMapsContainer extends React.Component {
     this.onMapClick = this.onMapClick.bind(this);
   }
 
-  onMarkerClick(props, marker, e) {
-    this.props.dispatchOnMarkerClick(props);
+  onMarkerClick(marker) {
+    const id = marker.id; //broken---------------------------
+    this.props.dispatchOnMarkerClick(id);
   }
 
   onMapClick (props) {
@@ -47,9 +48,10 @@ class GoogleMapsContainer extends React.Component {
 
     //create an array of the Marker components
     const markers = this.props.allMarkers.map((marker, i) => (
-      <Marker key={i} onClick={this.onMarkerClick} position={marker.position}> </Marker>
-    ))
+      <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
+    ));
 
+<<<<<<< HEAD
     return (
       <div>
         { this.props.currLocation &&
@@ -67,9 +69,29 @@ class GoogleMapsContainer extends React.Component {
         </Map> }
       </div>
         
+=======
+    const GoogleMapComponent = withScriptjs(withGoogleMap(props => (
+      <GoogleMap
+        defaultZoom={12}
+        defaultCenter={{ lat: 34.05223, lng: -118.24368 }}
+      >
+        {markers}
+      </GoogleMap>
+    )));
+
+    return(
+      <div>
+        <GoogleMapComponent
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API}`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+      </div>
+>>>>>>> master
     );
   }
 }
-// actual API needs to be substituted in
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: API})(GoogleMapsContainer));
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleMapsContainer);
 

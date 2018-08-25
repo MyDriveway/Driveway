@@ -24,7 +24,6 @@ const mapDispatchToProps = dispatch => ({
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.logout = this.logout.bind(this);
   }
 
@@ -47,7 +46,7 @@ class App extends Component {
     }).catch((err) => console.log(err));
   }
 
-  // deletes a session navigates user to login page
+  // deletes a session and navigates user to login page
   logout(e) {
     e.preventDefault();
     fetch('/endSession')
@@ -68,20 +67,21 @@ class App extends Component {
 
     return (
       <div>
-        {!this.props.loggedIn ? (
-        <div class="bgimage">
+         {/* to bypass the login page, add '!' before this.props.loggedIn */}
+        {this.props.loggedIn ? ( // if a session exists then go straight to map page
+        <div className="bgimage">
           <div id="app-container" >
-            <div className='componentWrapper' className='flexColumn'>
+            <div className='componentWrapper'>
               <div className='flexRow header'>
                 <img style={style.logo} src='./image/logo.png'/>
                 <h1 className='title'>Driveway</h1>
                 <Logout onClick={this.logout}/>
               </div>
               <div className='flexRow inputSection'>
-               <AddDriveway />
                 <SearchBar />
+                <AddDriveway />
               </div>
-              <div className="flexRow" style={{width: '100%'}}>
+              <div className="flexRow" style={{width: '100%', marginTop: 20}}>
                 <div className='mapWrapper'>
                   <GoogleMapsContainer />
                 </div>
