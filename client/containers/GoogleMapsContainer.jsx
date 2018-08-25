@@ -51,25 +51,6 @@ class GoogleMapsContainer extends React.Component {
       <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
     ));
 
-<<<<<<< HEAD
-    return (
-      <div>
-        { this.props.currLocation &&
-        <Map
-          item
-          xs = { 6 }
-          style = { style }
-          google = { this.props.google }
-          onClick = { this.onMapClick }
-          zoom = { 11 }
-          initialCenter = {{ lat: 34.05223, lng: -118.24368 }}
-          // initialCenter = {{ lat: this.props.currLocation.latitude, lng: this.props.currLocation.longitude }}
-        >
-          {markers}
-        </Map> }
-      </div>
-        
-=======
     const GoogleMapComponent = withScriptjs(withGoogleMap(props => (
       <GoogleMap
         defaultZoom={12}
@@ -84,11 +65,10 @@ class GoogleMapsContainer extends React.Component {
         <GoogleMapComponent
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API}`}
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `400px` }} />}
+          containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
       </div>
->>>>>>> master
     );
   }
 }
