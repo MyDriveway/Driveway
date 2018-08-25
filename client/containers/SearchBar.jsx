@@ -5,7 +5,6 @@ import Input from '@material-ui/core/Input';
 import * as actions from '../actions/actions';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-//import child components
 
 const styles = theme => ({
   button: {
@@ -52,7 +51,6 @@ class SearchBar extends Component {
     // check first element of input to distinguish from address, city, or zipcode
     // if first element of the userinput is not a number, it's a city
     if(isNaN(parseInt(input.charAt(0)))) {
-      console.log('grabbing city..', input);
       // grab city
       result.city = input;
     }else {

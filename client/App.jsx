@@ -4,10 +4,7 @@ import SearchBar from './containers/SearchBar.jsx';
 import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
-import Snackbar from '@material-ui/core/Snackbar';
 import Logout from './components/Logout.jsx'
-
-
 import Login from './containers/Login.jsx';
 import * as actions from './actions/actions'
 
@@ -27,7 +24,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  // navigates away from login page if a session already exists
+  // navigates away from login page if a session already exists, also sets current location
   componentDidMount() {
     fetch('/checkForSession')
     .then((response) => {
@@ -67,7 +64,6 @@ class App extends Component {
 
     return (
       <div>
-         {/* to bypass the login page, add '!' before this.props.loggedIn */}
         {this.props.loggedIn ? ( // if a session exists then go straight to map page
         <div className="bgimage">
           <div id="app-container" >

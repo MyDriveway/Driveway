@@ -1,9 +1,8 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  address: [],
+  address: [], 
 };
-
 
 const searchesReducer = (state=initialState, action) => {
   for (let i = 0; i < 10; i++) {
@@ -21,9 +20,7 @@ const searchesReducer = (state=initialState, action) => {
   switch(action.type) {
     default:
       return state;
-  }
-  //perhaps return state out here
-  
+  }  
 };
 
 export default searchesReducer;

@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  loggedIn: false,
+  loggedIn: false,  //responsible for rendering login page or map page
 }
 
 const loginReducer = (state=initialState, action) => {
