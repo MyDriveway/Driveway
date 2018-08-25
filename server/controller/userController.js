@@ -67,6 +67,9 @@ module.exports = {
     }
   },
 
+  // On user logout, delete their session from the database. There should
+  // only ever be one session at a time in the db, but I use deleteMany just 
+  // in case a sneaky second one gets in
   endSession: (req, res, next) => {
     Session.deleteMany({}, (err, result) => {
       if (err) next(err);
