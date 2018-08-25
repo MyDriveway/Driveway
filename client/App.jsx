@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 //import a wrapper
 import Results from './containers/Results.jsx';
+import Login from './containers/Login.jsx';
 
 class App extends Component {
   constructor(props) {

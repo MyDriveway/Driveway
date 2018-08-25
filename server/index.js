@@ -13,6 +13,10 @@ mongoose.connect(process.env.MONGO_URL, (err, db) => {
 
 app.use(express.static(path.join(__dirname +'./../'))); //serves the index.html
 
+app.get('/', (req, res, next) => {
+  console.log('hey');
+})
+
 app.listen(3000, () => {
   console.log('Listening on 3000...');
 })
