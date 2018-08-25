@@ -1,7 +1,23 @@
+* {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
 .flexRow {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.flexRowReverse {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .flexColumn {
@@ -9,4 +25,34 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.bgImage {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('./image/dw.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#app-container {
+    background: linear-gradient(to bottom right, rgba(35, 106, 98, 0.8),rgba(171, 105, 56, 0.8));
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.componentWrapper {
+  width: 100%;
+}
+
+/* .mapWrapper {
+    height: 60vh;
+    width: 40%;
+} */
+
+.resultsWrapper {
+    height: 80vh;
+    width: 45%;
+    overflow: scroll;
 }

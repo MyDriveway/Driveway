@@ -20,7 +20,7 @@ class Results extends Component {
   
   render() {
     return(
-      <div>
+      <div className='resultsWrapper'>
         {this.props.address.map((driveway, i) => {
           return (
             <Card obj={driveway} key={i}/>
