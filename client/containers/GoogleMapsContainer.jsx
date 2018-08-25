@@ -14,8 +14,8 @@ const mapStateToProps = (store, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchOnMarkerClick: (id) => dispatch(actions.selectMarker(id)),
-  onMapClick: () => dispatch(actions.deselect()),
+  dispatchOnMarkerClick: (props) => dispatch(actions.selectMarker(props)),
+  dispatchOnMapClick: () => dispatch(actions.deselect()),
 });
 
 class GoogleMapsContainer extends React.Component {
@@ -24,10 +24,15 @@ class GoogleMapsContainer extends React.Component {
 
     // binding this to event-handler functions
     this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.onMapClick = this.onMapClick.bind(this);
   }
 
   onMarkerClick(props, marker, e) {
-    this.props.dispatchOnMarkerClick(props.id);
+    this.props.dispatchOnMarkerClick(props);
+  }
+
+  onMapClick (props) {
+    this.props.dispatchOnMapClick();
   }
 
   render() {
@@ -41,7 +46,7 @@ class GoogleMapsContainer extends React.Component {
 
     //create an array of the Marker components
     const markers = this.props.allMarkers.map((marker, i) => (
-      <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
+      <Marker key={i} onClick={this.onMarkerClick} position={marker.position}> </Marker>
     ))
 
     return (
@@ -50,7 +55,7 @@ class GoogleMapsContainer extends React.Component {
           xs = { 6 }
           style = { style }
           google = { this.props.google }
-          onClick = { this.props.onMapClick }
+          onClick = { this.onMapClick }
           zoom = { 11 }
           initialCenter = {{ lat: 34.05223, lng: -118.24368 }}
         >
@@ -60,5 +65,5 @@ class GoogleMapsContainer extends React.Component {
   }
 }
 // actual API needs to be substituted in
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: API })(GoogleMapsContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({ apiKey: API})(GoogleMapsContainer));
 

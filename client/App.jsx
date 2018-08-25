@@ -26,12 +26,12 @@ class App extends Component {
   }
 
   // navigates away from login page if a session already exists
-  // componentWillMount() {
-  //   fetch('/checkForSession')
-  //   .then((response) => {
-  //     if (response.status === 200) this.props.setLogin(true);
-  //   }).catch((err) => console.log(err));
-  // }
+  componentWillMount() {
+    fetch('/checkForSession')
+    .then((response) => {
+      if (response.status === 200) this.props.setLogin(true);
+    }).catch((err) => console.log(err));
+  }
 
   // deletes a session and navigates user to login page
   logout(e) {
