@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 //import actions from action creators file
 import * as actions from '../actions/actions';
+import Button from '@material-ui/core/Button';
 //import child components
 
 const mapStateToProps = store => ({
@@ -68,15 +69,22 @@ class SearchBar extends Component {
     console.log(`username hererereer ${this.props.userInput}`)
   }
 
-  render() {
+  render() { 
+    const style = {
+      text: {
+        marginTop: '-10px'
+      }
+    }
     return(
-      <div>
-        <form onSubmit={this.handleSearch}>
-          <TextField 
+      <div className='flexRow'>
+        <form onSubmit={this.handleSearch} className='flexRow'>
+          <TextField
               label='Driveway'
-              onChange={this.handleChange} 
-              margin='normal'/>
-          <input type='submit' value='Search'/>
+              onChange={this.handleChange}
+              margin='none'
+              style={style.text}
+          />
+          <Button type='submit'>Search</Button>
         </form>
       </div>
     )

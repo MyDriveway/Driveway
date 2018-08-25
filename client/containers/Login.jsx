@@ -82,7 +82,7 @@ class Login extends Component {
           <h1 style={{"color": "#236A62"}}>Sign Up</h1><br />
           <input id='username-signup' type='text' placeholder='Username' /><br />
           <input id='password-signup' type='text' placeholder='Password' /><br />
-          <button onClick={this.signup}>Login</button><br />
+          <button onClick={this.signup}>Signup</button><br />
         </div>
       </div>
     )
