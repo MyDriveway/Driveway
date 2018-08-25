@@ -14,7 +14,7 @@ const mapStateToProps = (store, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchOnMarkerClick: (id) => dispatch(actions.selectMarker(id)),
+  dispatchOnMarkerClick: (props) => dispatch(actions.selectMarker(props)),
   onMapClick: () => dispatch(actions.deselect()),
 });
 
@@ -27,7 +27,7 @@ class GoogleMapsContainer extends React.Component {
   }
 
   onMarkerClick(props, marker, e) {
-    this.props.dispatchOnMarkerClick(props.id);
+    this.props.dispatchOnMarkerClick(props);
   }
 
   render() {
