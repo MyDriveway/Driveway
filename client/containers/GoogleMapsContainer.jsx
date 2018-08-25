@@ -58,7 +58,7 @@ class GoogleMapsContainer extends React.Component {
     const GoogleMapComponent = withScriptjs(withGoogleMap(props => (
       <GoogleMap
         defaultZoom={12}
-        defaultCenter={{ lat: 34.05223, lng: -118.24368 }}
+        defaultCenter={{ lat: 33.9850, lng: -118.4695 }}
       >
         {markers}
       </GoogleMap>
