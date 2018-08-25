@@ -39,14 +39,14 @@
 
 .mapWrapper {
     width: 45%;
-    height: 80vh;
+    height: 75vh;
     position: relative;
 }
 
 .resultsWrapper {
-    height: 80vh;
+    height: 75vh;
     width: 45%;
-    overflow: scroll;
+    overflow: sc75oll;
 }
 
 .header {
@@ -55,40 +55,43 @@
 }
 
 .title {
-    font-size: 3.5em;
+    font-size: 3.2em;
     color: #f4f4f4;
     letter-spacing: 5px;
     font-family: cursive;
 }
 
 .inputSection {
-    width: 50%;
+    width: 75%;
     color: #f4f4f4;
     height: 5vh;
+    margin-top: 5;
+    justify-content: center;
+    flex-wrap: nowrap;
 }
 
 @media only screen and (max-width: 950px) {
     .mapWrapper {
         width: 95%;
-        height: 30vh;
+        height: 25vh;
     }
     .resultsWrapper {
-        height: 50vh;
+        height: 45vh;
         width: 90%;
         margin-top: 25px;
     },
     .inputSection {
-        width: 80%;
+        width: 100%;
     }
 }
 
 @media only screen and (max-width: 700px) {
     .mapWrapper {
         width: 95%;
-        height: 30vh;
+        height: 25vh;
     }
     .resultsWrapper {
-        height: 50vh;
+        height: 45vh;
         width: 90%;
         margin-top: 25px;
     }
@@ -97,5 +100,8 @@
     }
     .title {
         visibility: hidden;
+    }
+    .inputSection {
+        width: 100%;
     }
 }

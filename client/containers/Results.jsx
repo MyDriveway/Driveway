@@ -20,7 +20,6 @@ class Results extends Component {
   }
   
   render() {
-    console.log('location stuff', this.props);
     return(
       <div className='resultsWrapper'>
         {this.props.locations && this.props.locations.map((driveway, i) => {
