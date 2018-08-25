@@ -69,20 +69,29 @@ class Login extends Component {
   }
 
   render() {
+    const style = {
+      container: {
+        width: '100vw',
+        height: '100vh',
+        background: 'linear-gradient(to bottom right, rgba(35, 106, 98, 0.8),rgba(171, 105, 56, 0.8)'
+      }
+    }
     return (
-      <div>
+      <div style={style.container} className='flexRow'>
+        <div style={{width: '50%'}}>
         <div style={{'display': 'inline-block', 'margin': '0px 10px'}}>
-          <h1 style={{"color": "#236A62"}}>Login</h1><br />
+          <h1 style={{"color": "#f4f4f4"}}>Login</h1><br />
           <input id='username-login' type='text' placeholder='Username' /><br />
           <input id='password-login' type='text' placeholder='Password' /><br />
           <button onClick={this.login}>Login</button><br />
         </div>
 
         <div style={{'display': 'inline-block', 'margin': '0px 10px'}}>
-          <h1 style={{"color": "#236A62"}}>Sign Up</h1><br />
+          <h1 style={{"color": "#f4f4f4"}}>Sign Up</h1><br />
           <input id='username-signup' type='text' placeholder='Username' /><br />
           <input id='password-signup' type='text' placeholder='Password' /><br />
           <button onClick={this.signup}>Signup</button><br />
+        </div>
         </div>
       </div>
     )
