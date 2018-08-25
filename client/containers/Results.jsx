@@ -25,7 +25,7 @@ class Results extends Component {
       <div className='resultsWrapper'>
         {this.props.locations && this.props.locations.map((driveway, i) => {
           return (
-            <Card obj={driveway} key={i}/>
+            <Card obj={driveway} key={driveway._id}/>
           )
         })}
       </div>

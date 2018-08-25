@@ -69,7 +69,8 @@ app.post('/searchAddress', (req, res) => {
   // the db and return back the result...whether it being empty...an array of objects..or one object?
   console.log(req.body);
   Driveways.find(req.body, (error, data) => {
-    console.log('inside find', data);
+    console.log('inside find', data[0]);
+    console.log('inside find', data[1]);
     if(error) return res.status(500).send(error);
     
     res.status(200).json(data);
