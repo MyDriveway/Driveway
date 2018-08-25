@@ -1,16 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  allMarkers: [
-    {
-      position: { lat: 39.648209, lng: -75.711185 },
-      display: false
-    },
-    {
-      position: { lat: 39.658209, lng: -75.731185 },
-      display: false
-    },
-  ],
+  allMarkers: [],
   selectedMarker: null
 }
 
@@ -19,6 +10,14 @@ const mapReducer = (state=initialState, action) => {
   let allMarkers;
 
   switch(action.type) {
+
+    case types.SET_MARKERS:
+      allMarkers = action.payload;
+      selectedMarker = initialState.selectedMarker;
+      return {
+        allMarkers,
+        selectedMarker
+      }
 
     case types.SELECT_MARKER:
       selectedMarker = action.payload;

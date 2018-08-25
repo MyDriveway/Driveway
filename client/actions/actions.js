@@ -24,3 +24,8 @@ export const setLogin = (bool) => ({
   type: types.SET_LOGIN,
   payload: bool
 })
+
+export const setMarkers = (markers) => ({
+  type: types.SET_MARKERS,
+  payload: markers
+})
