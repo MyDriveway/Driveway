@@ -54,15 +54,17 @@ module.exports = {
   },
 
   checkForSession: (req, res, next) => {
-    //currently only accounts for there being a single cookie
-    Session.findOne({cookieId: req.cookies.ssid}, (err, result) => {
-      if (err) next(err);
-      else if (result) {
-        res.sendStatus(200);
-      } else {
-        res.sendStatus(404);
-      }
-    })
+    //currently only accounts for there being a single cookie in req.cookies
+    if (req.cookies) {
+      Session.findOne({cookieId: req.cookies.ssid}, (err, result) => {
+        if (err) next(err);
+        else if (result) {
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(404);
+        }
+      })
+    }
   },
 
   endSession: (req, res, next) => {
