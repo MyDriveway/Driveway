@@ -58,17 +58,17 @@ class App extends Component {
         {this.props.loggedIn ? ( // if a session exists then go straight to map page
         <div className="bgimage">
           <div id="app-container" >
-            <div className='componentWrapper' className='flexColumn'>
+            <div className='componentWrapper'>
               <div className='flexRow header'>
                 <img style={style.logo} src='./image/logo.png'/>
                 <h1 className='title'>Driveway</h1>
                 <Logout onClick={this.logout}/>
               </div>
               <div className='flexRow inputSection'>
-                <AddDriveway />
                 <SearchBar />
+                <AddDriveway />
               </div>
-              <div className="flexRow" style={{width: '100%'}}>
+              <div className="flexRow" style={{width: '100%', marginTop: 20}}>
                 <div className='mapWrapper'>
                   <GoogleMapsContainer />
                 </div>
