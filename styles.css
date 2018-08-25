@@ -46,7 +46,7 @@
 .resultsWrapper {
     height: 75vh;
     width: 45%;
-    overflow: sc75oll;
+    overflow: scroll;
 }
 
 .header {
