@@ -6,11 +6,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Driveways = require('./models/driveways.js');
 const routes = require('./routes')
+const app = express();
+const userController = require('./controller/userController');
 
 const googleMapsClient = require('@google/maps').createClient({
   key: process.env.GOOGLE_API
 })
-const app = express();
 app.use(bodyParser.json());
 
 // connect to db
@@ -53,6 +54,10 @@ mongoose.connect(process.env.MONGO_URL, (err, db) => {
 
 app.use(express.static(path.join(__dirname +'./../'))); //serves the index.html
 app.use(bodyParser.json())
+
+app.get('/checkForSession', userController.checkForSession);
+app.post('/signup', userController.createAccount, userController.setSSIDCookie, userController.startSession);
+app.post('/login', userController.attemptLogin, userController.setSSIDCookie, userController.startSession);
 
 routes(app)
 

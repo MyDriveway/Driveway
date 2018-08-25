@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 //import actions from action creators file
 import * as actions from '../actions/actions';
 import Card from '../components/DrivewayCard.jsx';
+
 //grab state from search
 const mapStateToProps = store => ({
   locations: store.searches.locations,
@@ -21,7 +22,7 @@ class Results extends Component {
   render() {
     console.log('location stuff', this.props);
     return(
-      <div>
+      <div className='resultsWrapper'>
         {this.props.locations && this.props.locations.map((driveway, i) => {
           return (
             <Card obj={driveway} key={i}/>
