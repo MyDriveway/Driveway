@@ -16,22 +16,23 @@ module.exports = {
 
   attemptLogin: (req, res, next) => {
     //will only be able to search by username once encrypting included
-    User.findOne({username: req.body.username, password: req.body.password}, function (err, result) {
+    User.findOne({username: req.body.username}, function (err, result) {
       if (err) {
         next(err);
       } else {
         if (!result) res.sendStatus(404);
         else {
-          res.locals = result._id;
-          next();
+          result.checkPassword(req.body.password)
+          .then(function(success) {
+            if (success) {
+              res.locals = result._id;   
+              next();
+            }                                  
+          })
+          .catch(function(err) { 
+            next(err);
+          })
         }
-        // result.checkPassword(req.body.password)
-        // .then(function(result) {
-        //   if (result) {
-        //     res.locals = result._id;           
-        //     next();
-        //   } else next(err);                                  
-        // }).catch(function(err) { next(err) })
       }
     })
   },

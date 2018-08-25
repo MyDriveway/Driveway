@@ -78,9 +78,10 @@ app.post('/searchAddress', (req, res) => {
     res.status(200).json(data);
   })
 })
-// app.use((err, req, res, next) => {
-//   //res.render(err);
-// })
+
+app.use((err, req, res, next) => {
+  console.log(err);
+})
 
 app.listen(3000, () => {
   console.log('Listening on 3000...');
