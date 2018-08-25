@@ -49,6 +49,24 @@
     overflow: scroll;
 }
 
+.header {
+    height: 10vh;
+    width: 100%;
+}
+
+.title {
+    font-size: 3.5em;
+    color: #f4f4f4;
+    letter-spacing: 5px;
+    font-family: cursive;
+}
+
+.inputSection {
+    width: 50%;
+    color: #f4f4f4;
+    height: 5vh;
+}
+
 @media only screen and (max-width: 950px) {
     .mapWrapper {
         width: 95%;
@@ -58,6 +76,9 @@
         height: 50vh;
         width: 90%;
         margin-top: 25px;
+    },
+    .inputSection {
+        width: 80%;
     }
 }
 
@@ -70,5 +91,11 @@
         height: 50vh;
         width: 90%;
         margin-top: 25px;
+    }
+    .header {
+        height: 10vh;
+    }
+    .title {
+        visibility: hidden;
     }
 }

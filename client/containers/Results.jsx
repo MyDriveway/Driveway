@@ -7,7 +7,7 @@ import Card from '../components/DrivewayCard.jsx';
 
 //grab state from search
 const mapStateToProps = store => ({
-  address: store.searches.address,
+  locations: store.searches.locations,
 });
 
 const mapDispatchToProps = dispatch => ({});
@@ -20,9 +20,10 @@ class Results extends Component {
   }
   
   render() {
+    console.log('location stuff', this.props);
     return(
       <div className='resultsWrapper'>
-        {this.props.address.map((driveway, i) => {
+        {this.props.locations && this.props.locations.map((driveway, i) => {
           return (
             <Card obj={driveway} key={i}/>
           )
@@ -31,4 +32,5 @@ class Results extends Component {
     )
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

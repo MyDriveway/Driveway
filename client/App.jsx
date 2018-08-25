@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import SearchBar from './containers/SearchBar.jsx';
 import AddDriveway from "./containers/addDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
 import Snackbar from '@material-ui/core/Snackbar';
+import Logout from './components/Logout.jsx'
 
 
 import Login from './containers/Login.jsx';
@@ -20,24 +22,31 @@ const mapDispatchToProps = dispatch => ({
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.logout = this.logout.bind(this);
   }
 
   // -----> wait for logout button
-  // componentWillMount() {
-  //   fetch('/checkForSession')
-  //   .then((response) => {
-  //     if (response.status === 200) this.props.setLogin(true);
-  //   }).catch((err) => console.log(err));
-  // }
+  componentWillMount() {
+    fetch('/checkForSession')
+    .then((response) => {
+      if (response.status === 200) this.props.setLogin(true);
+    }).catch((err) => console.log(err));
+  }
+
+  logout(e) {
+    e.preventDefault();
+    fetch('/endSession')
+    .then(response => {
+      this.props.setLogin(false);
+    }).catch(err => {
+      this.props.setLogin(false);
+      console.log(err);
+    })
+  }
 
   render() {
     const style = {
-      title: {
-        fontSize: '3.5em',
-        color: '#f4f4f4',
-        letterSpacing: '5px',
-        fontFamily: 'cursive'
-      },
       logo: {
         width: '60px'
       }
@@ -49,10 +58,14 @@ class App extends Component {
         <div class="bgimage">
           <div id="app-container" >
             <div className='componentWrapper' className='flexColumn'>
-              <div className='flexRow' style={{height: '15vh', width: '100%'}}>
+              <div className='flexRow header'>
                 <img style={style.logo} src='./image/logo.png'/>
-                <h1 style={style.title}>Driveway</h1>
-                <AddDriveway />
+                <h1 className='title'>Driveway</h1>
+                <Logout onClick={this.logout}/>
+              </div>
+              <div className='flexRow inputSection'>
+               <AddDriveway />
+                <SearchBar />
               </div>
               <div className="flexRow" style={{width: '100%'}}>
                 <div className='mapWrapper'>
@@ -63,31 +76,13 @@ class App extends Component {
             </div>
           </div>
         </div>
-      ) : (
+      ) : ( // if no session exists, render login page
         <div>
-             <Login />
+          <Login />
         </div>
         )}
       </div>
     );
-
-  // render() {
-  //   if (this.props.loggedIn) {
-  //     return (
-  //       <div id="app-container">
-  //         <AddDriveway />
-  //         <GoogleMapsContainer />
-  //         <Results />
-  //       </div>
-  //     );
-  //   } else {
-  //     return (
-  //       <div>
-  //         <Login />
-  //       </div>
-  //     );
-  //   }
-  // }
   }
 }
 
