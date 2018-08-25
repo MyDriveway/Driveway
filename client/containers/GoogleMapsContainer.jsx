@@ -37,9 +37,11 @@ class GoogleMapsContainer extends React.Component {
 
   render() {
     const style = {
-      width: '45%',
-      height: '80vh',
-      position: 'relative'
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      top: 0,
+      left: 0
     }
 
     //create an array of the Marker components
@@ -54,8 +56,8 @@ class GoogleMapsContainer extends React.Component {
           style = { style }
           google = { this.props.google }
           onClick = { this.onMapClick }
-          zoom = { 14 }
-          initialCenter = {{ lat: 39.648209, lng: -75.711185 }}
+          zoom = { 11 }
+          initialCenter = {{ lat: 34.05223, lng: -118.24368 }}
         >
           {markers}
         </Map>
