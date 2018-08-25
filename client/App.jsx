@@ -38,30 +38,27 @@ class App extends Component {
         letterSpacing: '5px',
         fontFamily: 'cursive'
       },
-      fakeMap: {
-        width: '45%',
-        height: '80vh',
-        backgroundColor: 'black'
+      logo: {
+        width: '60px'
       }
     }
 
     return (
       <div>
-        {this.props.loggedIn ? (
+        {!this.props.loggedIn ? (
         <div class="bgimage">
-          <div id="app-container">
-            <div className='componentWrapper'>
-              <div className='flexRow' style={{height: '125px'}}>
-                {window.innerWidth > 700 && <div style={{width: '150px'}}/>}
+          <div id="app-container" >
+            <div className='componentWrapper' className='flexColumn'>
+              <div className='flexRow' style={{height: '15vh', width: '100%'}}>
+                <img style={style.logo} src='./image/logo.png'/>
                 <h1 style={style.title}>Driveway</h1>
                 <AddDriveway />
               </div>
-              <div className="flexRow">
-                <Results />
-                {/* <div >
+              <div className="flexRow" style={{width: '100%'}}>
+                <div className='mapWrapper'>
                   <GoogleMapsContainer />
-                </div> */}
-                <div style={style.fakeMap}>test</div>
+                </div>
+                <Results />
               </div>
             </div>
           </div>
