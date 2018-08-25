@@ -12,11 +12,13 @@ import Login from './containers/Login.jsx';
 import * as actions from './actions/actions'
 
 const mapStateToProps = store => ({
-  loggedIn: store.login.loggedIn
+  loggedIn: store.login.loggedIn,
+  currLocation: store.map.currLocation
 })
 
 const mapDispatchToProps = dispatch => ({
-  setLogin: (bool) => dispatch(actions.setLogin(bool))
+  setLogin: (bool) => dispatch(actions.setLogin(bool)),
+  setCurrLocation: (currLocation) => dispatch(actions.setCurrLocation(currLocation))
 })
 
 class App extends Component {
@@ -26,10 +28,21 @@ class App extends Component {
   }
 
   // navigates away from login page if a session already exists
-  componentWillMount() {
+  componentDidMount() {
     fetch('/checkForSession')
     .then((response) => {
       if (response.status === 200) this.props.setLogin(true);
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          fetch(`/api/search/${longitude}/${latitude}`)
+            .then(response => response.json())
+            .then(data => this.props.setCurrLocation({latitude: latitude, longitude: longitude}))
+            .catch(err => console.error(err))
+        }
+      )
+      
     }).catch((err) => console.log(err));
   }
 

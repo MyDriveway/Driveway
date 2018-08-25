@@ -2,7 +2,8 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   allMarkers: [],
-  selectedMarker: null
+  selectedMarker: null,
+  currLocation: {}
 }
 
 const mapReducer = (state=initialState, action) => {
@@ -39,6 +40,17 @@ const mapReducer = (state=initialState, action) => {
         allMarkers,
         selectedMarker
       }
+    
+    case types.SET_CURR_LOCATION:
+      const newState = Object.assign({}, state, 
+                                      {
+                                        currLocation: {
+                                          latitude: action.payload.latitude, 
+                                          longitude: action.payload.longitude
+                                        }
+                                      })
+
+      return newState;
       
     default:
       return state;

@@ -11,6 +11,7 @@ const Driveways = require('./models/driveways.js');
 const routes = require('./routes')
 const userController = require('./controller/userController');
 
+
 const googleMapsClient = require('@google/maps').createClient({
   key: process.env.GOOGLE_API
 })
@@ -68,9 +69,9 @@ app.post('/searchAddress', (req, res) => {
       )
     });
   }else {
+    console.log('inside post request', req.body);
     // if not, just return the result
     Driveways.find(req.body, (error, data) => {
-      console.log('inside find', data);
       if(error) return res.status(500).send(error);
       
       res.status(200).json(data);
