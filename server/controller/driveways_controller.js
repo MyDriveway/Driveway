@@ -14,11 +14,12 @@ module.exports = {
             if (err) return res.status(500).json({ error: '1 Internal Server Error'});
 
             if (!dbCheck) {
+                req.body.city = city.toLowerCase();
+                req.body.state = state.toLowerCase();
                 googleMapsClient.geocode({ address: `${address}, ${city}, ${state}`}, function(err, response) {
                     if (err) return res.status(500).json({ error: '2 Internal Server Error'});
                     const locationObject = response.json.results[0].geometry.location
                     req.body.geometry = {coordinates: [locationObject.lng, locationObject.lat]}
-                    console.log(req.body)
                     const newDriveway = new Driveways(req.body)
                     newDriveway.save(function (err) {
                         if (err) return res.status(500).json({ error: err});
