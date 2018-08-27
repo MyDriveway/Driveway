@@ -1,16 +1,16 @@
-require("dotenv/config");
+require('dotenv/config');
 
-const express = require("express");
+const express = require('express');
 const app = express();
 
-const path = require("path");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const Driveways = require("./models/driveways.js");
-const userController = require("./controllers/userController");
+const path = require('path');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const Driveways = require('./models/driveways.js');
+const userController = require('./controllers/userController');
 
-const googleMapsClient = require("@google/maps").createClient({
+const googleMapsClient = require('@google/maps').createClient({
   key: process.env.GOOGLE_API
 });
 
@@ -20,25 +20,25 @@ mongoose.connect(
   (err, db) => {
     if (err) console.error(err);
 
-    console.log("connected to database");
+    console.log('connected to database');
   }
 );
 
-app.use(express.static(path.join(__dirname + "./../client/static/"))); //serves the index.html
-app.use(express.static(path.join(__dirname + "./../")));
+app.use(express.static(path.join(__dirname + './../client/static/'))); //serves the index.html
+app.use(express.static(path.join(__dirname + './../')));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.get("/checkForSession", userController.checkForSession);
-app.get("/endSession", userController.endSession);
+app.get('/checkForSession', userController.checkForSession);
+app.get('/endSession', userController.endSession);
 app.post(
-  "/signup",
+  '/signup',
   userController.createAccount,
   userController.setSSIDCookie,
   userController.startSession
 );
 app.post(
-  "/login",
+  '/login',
   userController.attemptLogin,
   userController.setSSIDCookie,
   userController.startSession
@@ -46,12 +46,12 @@ app.post(
 
 //-------REMOVED /routes/ folder, using the functions here. should be refactord, but the extra /routes/ was unnecessary
 
-const multer = require("multer");
-const DrivewaysController = require("./controllers/drivewayController");
+const multer = require('multer');
+const DrivewaysController = require('./controllers/drivewayController');
 
 const drivewayImageStorage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "./uploads/");
+    cb(null, './uploads/');
   },
   filename: function(req, file, cb) {
     cb(null, new Date().toISOString() + file.originalname);
@@ -64,14 +64,10 @@ const drivewayImage = multer({
   }
 });
 
-app.post(
-  "/createDriveway",
-  drivewayImage.single("photo"),
-  DrivewaysController.create
-);
-app.get("/api/search/:lng/:lat", DrivewaysController.search);
+app.post('/createDriveway', drivewayImage.single('photo'), DrivewaysController.create);
+app.get('/api/search/:lng/:lat', DrivewaysController.search);
 
-app.get("/searchAddress/:address", (req, res) => {
+app.get('/searchAddress/:address', (req, res) => {
   /* NOTE: req.body holds an object that contains the user's input from the search bar */
   // find the address
   // check whether it's a valid address search using google maps?
@@ -87,11 +83,11 @@ app.get("/searchAddress/:address", (req, res) => {
         {
           $geoNear: {
             near: {
-              type: "Point",
+              type: 'Point',
               coordinates: [parseFloat(coords.lng), parseFloat(coords.lat)]
             },
-            distanceField: "dist",
-            includeLocs: "dist.location",
+            distanceField: 'dist',
+            includeLocs: 'dist.location',
             maxDistance: parseFloat(8050),
             spherical: true
           }
@@ -112,5 +108,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(3000, () => {
-  console.log("Listening on 3000...");
+  console.log('Listening on 3000...');
 });
