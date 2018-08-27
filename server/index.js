@@ -8,7 +8,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const Driveways = require("./models/driveways.js");
-const routes = require("./routes");
 const userController = require("./controllers/userController");
 
 const googleMapsClient = require("@google/maps").createClient({
@@ -47,7 +46,7 @@ app.post(
 //-------REMOVED /routes/ folder, using the functions here. should be refactord, but the extra /routes/ was unnecessary
 
 const multer = require("multer");
-const DrivewaysController = require("../controllers/drivewayController");
+const DrivewaysController = require("./controllers/drivewayController");
 
 const drivewayImageStorage = multer.diskStorage({
   destination: function(req, file, cb) {

@@ -87,7 +87,7 @@ class App extends Component {
           <div id="app-container" >
             <div className='componentWrapper'>
               <div className='flexRow header'>
-                <img style={style.logo} src='./image/logo.png'/>
+                <img style={style.logo} src='./client/static/images/logo.png'/>
                 <h1 className='title'>Driveway</h1>
                 <Logout onClick={this.logout}/>
               </div>
