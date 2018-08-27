@@ -22,7 +22,7 @@
 .bgImage {
     height: 100vh;
     width: 100vw;
-    background-image: url('./client/static/dw.jpg');
+    background-image: url('../images/dw.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
