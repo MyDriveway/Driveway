@@ -24,7 +24,8 @@ mongoose.connect(
   }
 );
 
-app.use(express.static(path.join(__dirname + "./../"))); //serves the index.html
+app.use(express.static(path.join(__dirname + "./../client/static/"))); //serves the index.html
+app.use(express.static(path.join(__dirname + "./../")));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
