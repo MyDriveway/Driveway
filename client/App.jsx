@@ -9,7 +9,7 @@ import Logout from './components/Logout.jsx';
 import Login from './containers/Login.jsx';
 import * as actions from './actions/actions';
 import './static/css/animation.css';
-import './static/css/app.css';
+import './static/css/styles.css';
 import logo from './static/images/logo.png';
 
 const mapStateToProps = store => ({
