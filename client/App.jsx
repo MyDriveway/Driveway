@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import SearchBar from './containers/SearchBar.jsx';
-import AddDriveway from "./containers/addDriveway.jsx"
+import CreateDriveway from "./containers/CreateDriveway.jsx"
 import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx'
 import Results from './containers/Results.jsx';
 import Logout from './components/Logout.jsx'
@@ -93,7 +93,7 @@ class App extends Component {
               </div>
               <div className='flexRow inputSection'>
                 <SearchBar />
-                <AddDriveway />
+                <CreateDriveway />
               </div>
               <div className="flexRow" style={{width: '100%', marginTop: 20}}>
                 <div className='mapWrapper'>
