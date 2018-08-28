@@ -14,3 +14,6 @@ export const DESELECT = 'DESELECT';
 
 // login reducer
 export const SET_LOGIN = 'SET_LOGIN';
+
+// signed up reducer
+export const SET_SIGNED_UP = 'SET_SIGNED_UP';
