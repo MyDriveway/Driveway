@@ -1,18 +1,39 @@
 import * as types from '../constants/actionTypes';
 
+//DRIVEWAY ACTIONS
+
+export const openCreateModal = () =>({
+  type: types.OPEN_CREATE_MODAL,
+})
+
+
+export const closeCreateModal = () =>({
+  type: types.CLOSE_CREATE_MODAL,
+})
+
+export const createDriveway = (data) =>({
+  type: types.CREATE_DRIVEWAY,
+  payload: data,
+})
+
+export const creationError = () =>({
+  type: types.CREATION_ERROR,
+})
+
+
 // add a location search value to the store
 export const addSearch = (userInput) => ({
   type: types.ADD_SEARCH,
   payload: userInput,
 });
 
-// add a driveway
+// add a driveway to search locations
 export const addLocations = (locations) => ({
   type: types.ADD_LOCATIONS,
   payload: locations,
 });
 
-// sets the current location
+// sets the current location fpr the map
 export const setCurrLocation = (currLocation) => ({
   type: types.SET_CURR_LOCATION,
   payload: currLocation

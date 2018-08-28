@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
+import * as actions from '../actions/actions';
 
 const styles = theme => ({
     textField: {
@@ -14,56 +16,78 @@ const styles = theme => ({
       }
   });
 
-class AddDriveway extends Component {
+  const validateData = () => (this.get('address') &&
+                              this.get('city') && 
+                              this.get('state')&&
+                              this.get('zip') && 
+                              this.get("timeStart") && 
+                              this.get("timeEnd"))
+
+  const mapStateToProps = store => ({
+      createDrivewayModal: store.driveways.createDrivewayModal,
+      submitError: store.driveways.submitError
+  });
+  
+  const mapDispatchToProps = dispatch => ({
+      handleOpen: () => dispatch(actions.openCreateModal()),
+      handleClose: () => dispatch(actions.closeCreateModal()),
+      handleSubmit: (event) => {
+          const data = new Formdata(event.target);
+          const form = document.querySelector('#createDrivewayForm');
+          form.classList.remove("shake");
+          data.isValid = validateData;
+          if (data.isValid()){
+            return dispatch(actions.createDriveway(data))
+          } else {
+            form.classList.add("shake");
+            return dispatch(actions.creationError())
+          }}
+          //     setCurrLocation: currLocation => dispatch(actions.setCurrLocation(currLocation))
+  });
+
+class CreateDriveway extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-           createDrivewayModal: false,
-           submitError: false,
-        }
-        this.handleOpen = this.handleOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleOpen() {
-        this.setState({createDrivewayModal: true})
-    }
+    // handleOpen() {
+    //     this.setState({createDrivewayModal: true})
+    // }
 
-    handleClose() {
-        this.setState({
-            submitError: false,
-            createDrivewayModal: false
-        })
-    }
+    // handleClose() {
+    //     this.setState({
+    //         submitError: false,
+    //         createDrivewayModal: false
+    //     })
+    // }
 
-    handleSubmit(e) {
-      e.preventDefault();
+    // handleSubmit(e) {
+    //   e.preventDefault();
 
-      const form = document.querySelector('#createDrivewayForm')
-      form.classList.remove("shake");
-      const data = new FormData(e.target);
+    //   const form = document.querySelector('#createDrivewayForm')
+    //   form.classList.remove("shake");
+    //   const data = new FormData(e.target);
 
-      if (data.get('address'), data.get('city'), data.get('state'),
-          data.get('zip'), data.get("timeStart"), data.get("timeEnd")) {
+    //   if (data.get('address'), data.get('city'), data.get('state'),
+    //       data.get('zip'), data.get("timeStart"), data.get("timeEnd")) {
 
-        fetch('/createDriveway', {
-            method: 'POST',
-            body: data
-        })
-        .then(res => res.json())
-        .then(posting => {
-            this.setState({createDrivewayModal: false})
-        })
-        .catch(err => console.log(err))
-      } 
-      else {
-        this.setState({
-            submitError: true,
-        })
-        form.classList.add("shake");
-      }
-    }
+    //     fetch('/createDriveway', {
+    //         method: 'POST',
+    //         body: data
+    //     })
+    //     .then(res => res.json())
+    //     .then(posting => {
+    //         this.setState({createDrivewayModal: false})
+    //     })
+    //     .catch(err => console.log(err))
+    //   } 
+    //   else {
+    //     this.setState({
+    //         submitError: true,
+    //     })
+    //     form.classList.add("shake");
+    //   }
+    // }
 
     render() {
         const style = {
@@ -84,20 +108,20 @@ class AddDriveway extends Component {
           
         return (
           <div className='flexRow'>
-              <Button variant="contained" onClick={this.handleOpen}>
+              <Button variant="contained" onClick={this.props.handleOpen}>
                   Create Driveway!
               </Button>
               <Dialog
-              open={this.state.createDrivewayModal}
-              onClose={this.handleClose}
+              open={this.props.createDrivewayModal}
+              onClose={this.props.handleClose}
               id='createDrivewayForm'
               className='animated'
               >
               <DialogTitle>
                   <h2 style={{color: '#236A62'}}>Create a driveway posting.</h2>
               </DialogTitle>
-              <form onSubmit={this.handleSubmit} style={style.form}>
-                  {this.state.submitError ? (
+              <form onSubmit={this.props.handleSubmit} style={style.form}>
+                  {this.props.submitError ? (
                   <div>
                   <Input
                   error
@@ -230,7 +254,7 @@ class AddDriveway extends Component {
                         style={style.pictureUpload}
                   />
                   <div className='flexRow' style={{marginTop: 20}}>
-                      <Button variant="contained" onClick={this.handleClose}>Close</Button>
+                      <Button variant="contained" onClick={this.props.handleClose}>Close</Button>
                       <Button variant="contained" type='submit'>Submit</Button>
                   </div>
                   <div style={{width: '100%', height: '40px'}}/>
@@ -241,4 +265,6 @@ class AddDriveway extends Component {
     }
 }
 
-export default withStyles(styles)(AddDriveway);
+// export default withStyles(styles)(AddDriveway);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CreateDriveway));
