@@ -34,6 +34,8 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  //TODO:
+  //pan map to new created location
   handleOpen: () => dispatch(actions.openCreateModal()),
   handleClose: () => dispatch(actions.closeCreateModal()),
   handleSubmit: event => {
@@ -51,7 +53,6 @@ const mapDispatchToProps = dispatch => ({
       return dispatch(actions.creationError());
     }
   }
-  //     setCurrLocation: currLocation => dispatch(actions.setCurrLocation(currLocation))
 });
 
 class CreateDriveway extends Component {

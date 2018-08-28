@@ -28,13 +28,13 @@ const styles = theme => ({
 const mapStateToProps = store => ({
   userInput: store.searches.userInput,
   locations: store.searches.locations,
-  currLocation: store.map.currLocation
+  focus: store.map.focus
 });
 
 const mapDispatchToProps = dispatch => ({
   addSearch: userInput => dispatch(actions.addSearch(userInput)),
   addLocations: locations => dispatch(actions.addLocations(locations)),
-  setCurrLocation: currLocation => dispatch(actions.setCurrLocation(currLocation))
+  setFocus: coords => dispatch(actions.setFocus(coords))
 });
 
 class SearchBar extends Component {
@@ -54,7 +54,7 @@ class SearchBar extends Component {
     .then(response => response.json())
     .then(data => {
       this.props.addLocations(data.results);
-      this.props.currLocation(data.coords);
+      this.props.ocation(data.coords);
     })
     .catch(err => {
       return err;
