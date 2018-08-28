@@ -28,10 +28,10 @@ export const addLocations = locations => ({
   payload: locations
 });
 
-// sets the current location fpr the map
-export const setCurrLocation = currLocation => ({
-  type: types.SET_CURR_LOCATION,
-  payload: currLocation
+// sets the current view for the map
+export const setFocus = coords => ({
+  type: types.SET_FOCUS,
+  payload: coords
 });
 
 // select a specific marker on the map (currently broken in the Google maps container)
@@ -41,7 +41,7 @@ export const selectMarker = id => ({
 });
 
 // deselect any marker on the map
-export const deselect = () => ({
+export const deselectMarker = () => ({
   type: types.DESELECT,
   payload: null
 });
