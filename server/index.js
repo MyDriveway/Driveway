@@ -31,18 +31,8 @@ app.use(cookieParser());
 
 app.get('/checkForSession', userController.checkForSession);
 app.get('/endSession', userController.endSession);
-app.post(
-  '/signup',
-  userController.createAccount,
-  userController.setSSIDCookie,
-  userController.startSession
-);
-app.post(
-  '/login',
-  userController.attemptLogin,
-  userController.setSSIDCookie,
-  userController.startSession
-);
+app.post('/signup', userController.createAccount, userController.setSSIDCookie, userController.startSession);
+app.post('/login', userController.attemptLogin, userController.setSSIDCookie, userController.startSession);
 
 //-------REMOVED /routes/ folder, using the functions here. should be refactord, but the extra /routes/ was unnecessary
 
@@ -97,14 +87,15 @@ app.get('/searchAddress/:address', (req, res) => {
         if (err) return res.status(500).send(err);
         const fullResults = { results: result, coords };
 
-        res.send(JSON.stringify(fullResults));
+        res.json(fullResults);
       }
     );
   });
 });
 
 app.use((err, req, res, next) => {
-  console.log(err);
+  console.error('INTERNAL SERVER ERROR ===>', err);
+  res.status(500).json(err);
 });
 
 app.listen(3000, () => {
