@@ -1,72 +1,101 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../actions/actions";
+
+import {
+  GoogleMap,
+  withGoogleMap,
+  withScriptjs,
+  Marker
+} from "react-google-maps";
 
 // to get the google api
-import { API } from '../../clientENV/api.js'
+import { API } from "../../clientENV/api.js";
 
 const mapStateToProps = (store, ownProps) => ({
   // provide pertinent state here
   allMarkers: store.map.allMarkers,
   selectedMarker: store.map.selectedMarker,
   google: ownProps.google,
-  currLocation: store.map.currLocation
+  focus: store.map.focus
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchOnMarkerClick: (id) => dispatch(actions.selectMarker(id)),
-  dispatchOnMapClick: () => dispatch(actions.deselect()),
+  handleMarkerClick: event => {
+    return dispatch(actions.selectMarker(event.target.id));
+  },
+  onMapClick: () => dispatch(actions.deselectMarker()),
+  handleDragEnd: newFocus => dispatch(actions.setFocus(newFocus.toJSON()))
 });
 
 class GoogleMapsContainer extends React.Component {
   constructor(props) {
     super(props);
-
-    // binding this to event-handler functions
-    this.onMarkerClick = this.onMarkerClick.bind(this);
-    this.onMapClick = this.onMapClick.bind(this);
+    this._map = React.createRef();
   }
 
-  onMarkerClick(marker) {
-    const id = marker.id; //broken---------------------------
-    // when we click on a marker on the map, the return object doesn't have
-    // the id value that I was trying to pass in
-    this.props.dispatchOnMarkerClick(id);
-  }
-
-  // unnecessary, can go straight to dispatch
-  onMapClick (props) {
-    this.props.dispatchOnMapClick();
+  shouldComponentUpdate(nextProps) {
+    let result = false;
+    if (this._map.current) {
+      this._map.current.panTo(nextProps.focus);
+      if (
+        JSON.stringify(this.props.allMarkers) !==
+        JSON.stringify(nextProps.allMarkers)
+      ) {
+        result = true;
+      }
+    } else {
+      result = true;
+    }
+    return result;
   }
 
   render() {
     const style = {
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
+      width: "100%",
+      height: "100%",
+      position: "absolute",
       top: 0,
       left: 0
-    }
+    };
 
-    //create an array of the Marker components
-    const markers = this.props.allMarkers.map((marker, i) => (
-      <Marker key={marker.id} id={marker.id} onClick={this.onMarkerClick} position={marker.position}> </Marker>
-    ));
+    const GoogleMapComponent = withScriptjs(
+      withGoogleMap(props => {
+        //create an array of the Marker components
+        const markers = props.allMarkers.map((marker, i) => (
+          <Marker
+            key={marker.id}
+            id={marker.id}
+            onClick={props.handleMarkerClick}
+            position={marker.position}
+          >
+            {" "}
+          </Marker>
+        ));
 
-    //this can eventually go in it's on file as a component
-    const GoogleMapComponent = withScriptjs(withGoogleMap(props => (
-      <GoogleMap
-        defaultZoom={13}
-        defaultCenter={{ lat: 33.9850, lng: -118.4695 }}
-      >
-        {markers}
-      </GoogleMap>
-    )));
+        let map = (
+          <GoogleMap
+            ref={this._map}
+            defaultZoom={13}
+            defaultCenter={props.focus}
+            onDragEnd={() => props.handleDragEnd(this._map.current.getCenter())}
+          >
+            {markers}
+          </GoogleMap>
+        );
 
-    return(
+        return map;
+      })
+    );
+
+    return (
       <div>
         <GoogleMapComponent
+          allMarkers={this.props.allMarkers}
+          handleMarkerClick={this.props.handleMarkerClick}
+          handleMapClick={this.props.handleMapClick}
+          handleDragEnd={this.props.handleDragEnd}
+          focus={this.props.focus}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API}`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
@@ -77,5 +106,7 @@ class GoogleMapsContainer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleMapsContainer);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GoogleMapsContainer);

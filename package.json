@@ -1,10 +1,11 @@
 {
-  "name": "Driveway",
+  "name": "driveway",
   "version": "1.0.0",
   "description": "An app to lease driveways",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
+    "build": "webpack --mode production",
     "webpack": "webpack",
     "start:dev": "webpack-dev-server",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
@@ -17,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hlmitchell/Driveway.git"
+    "url": "git+https://github.com/Codesmith-Targaryen/Driveway.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hlmitchell/Driveway/issues"
+    "url": "https://github.com/Codesmith-Targaryen/Driveway/issues"
   },
-  "homepage": "https://github.com/hlmitchell/Driveway#readme",
+  "homepage": "https://github.com/Codesmith-Targaryen/Driveway#readme",
   "dependencies": {
     "@google/maps": "^0.5.5",
     "@material-ui/core": "^1.5.1",
@@ -50,14 +51,20 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
     "concurrently": "^3.6.1",
+    "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "nodemon": "^1.18.3",
     "parallelshell": "^3.0.2",
     "path": "^0.12.7",
+    "style-loader": "^0.22.1",
+    "url-loader": "^1.1.1",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"

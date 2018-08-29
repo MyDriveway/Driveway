@@ -23,19 +23,13 @@ const styles = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  dispatchOnMarkerClick: (props) => dispatch(actions.selectMarker(props)),
+  handleButtonClick: (id) => dispatch(actions.selectMarker(id)),
 });
+
 
 class MediaCard extends Component {
   constructor(props) {
     super(props);
-    this.onShowOnMapClick = this.onShowOnMapClick.bind(this);
-  }
-
-  onShowOnMapClick() {
-    //props.obj is the obj containing all the info of that driveway
-    //props.key gives the unique _id from the database
-    this.props.dispatchOnMarkerClick(this.props.obj._id);
   }
 
   render() {
@@ -62,7 +56,7 @@ class MediaCard extends Component {
         </CardContent>
         <CardActions>
           <Button size="small" color="primary"
-            onClick={this.onShowOnMapClick}
+            onClick={()=>this.props.handleButtonClick(this.props.obj._id)}
           > 
             Show On Map
           </Button>

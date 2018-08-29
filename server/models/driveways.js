@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const LocationSchema = new Schema({
   type: {
@@ -11,7 +11,7 @@ const LocationSchema = new Schema({
     index: '2dsphere',
     required: 'true'
   }
-})
+});
 
 const drivewaysSchema = new Schema({
   address: {
@@ -31,25 +31,27 @@ const drivewaysSchema = new Schema({
     required: true
   },
   timeStart: {
-    type: String,
-    required: true,
+    type: Number,
+    required: true
   },
   timeEnd: {
-    type: String,
+    type: Number,
     required: true
   },
   rateDay: {
-    type: String,
+    type: Number
   },
   rateHour: {
-    type: String,
+    type: Number
   },
   image: {
-    type: String,
+    type: String
   },
   geometry: LocationSchema,
-})
+  userId: { type: String, required: true },
+  schedule: []
+});
 
-const Driveways = mongoose.model('driveways', drivewaysSchema)
+const Driveways = mongoose.model('driveways', drivewaysSchema);
 
-module.exports = Driveways
+module.exports = Driveways;
