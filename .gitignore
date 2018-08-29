@@ -1,5 +1,5 @@
 build
+package-lock.json
 node_modules
 .env
 clientENV
-package-lock.json
