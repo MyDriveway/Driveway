@@ -1,5 +1,12 @@
 // export const ACTION_DESCRIPTION = “ACTION_DESCRIPTION”;
 
+// driveway reducer
+export const OPEN_CREATE_MODAL = 'OPEN_CREATE_MODAL';
+export const CLOSE_CREATE_MODAL = 'CLOSE_CREATE_MODAL';
+export const CREATE_DRIVEWAY = 'CREATE_DRIVEWAY';
+export const CREATION_ERROR = 'CREATION_ERROR'
+
+
 // search reducer
 export const ADD_SEARCH = 'ADD_SEARCH';
 export const ADD_LOCATIONS = 'ADD_LOCATIONS';
