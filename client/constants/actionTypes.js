@@ -8,11 +8,11 @@ export const CREATION_ERROR = 'CREATION_ERROR'
 
 
 // search reducer
-export const ADD_SEARCH = 'ADD_SEARCH';
-export const ADD_LOCATIONS = 'ADD_LOCATIONS';
+export const UPDATE_SEARCH_INPUT = 'UPDATE_SEARCH_INPUT';
+export const STORE_RESULTS = 'STORE_RESULTS';
 
 // searches reducer
-export const SET_CURR_LOCATION = 'SET_CURR_LOCATION';
+export const SET_FOCUS = 'SET_FOCUS';
 
 // map reducer
 export const SELECT_MARKER = 'SELECT_MARKER';

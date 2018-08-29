@@ -23,7 +23,7 @@ const styles = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  dispatchOnMarkerClick: (id) => dispatch(actions.selectMarker(id)),
+  handleButtonClick: (id) => dispatch(actions.selectMarker(id)),
 });
 
 
@@ -56,7 +56,7 @@ class MediaCard extends Component {
         </CardContent>
         <CardActions>
           <Button size="small" color="primary"
-            onClick={()=>this.props.dispatchOnMarkerClick(this.props.obj._id)}
+            onClick={()=>this.props.handleButtonClick(this.props.obj._id)}
           > 
             Show On Map
           </Button>
