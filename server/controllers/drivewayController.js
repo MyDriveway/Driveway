@@ -5,8 +5,6 @@ var googleMapsClient = require('@google/maps').createClient({
 
 module.exports = {
   create(req, res) {
-    // console.log('SSID ====>', req.cookies.ssid);
-    console.log('req.body =====>', req.body);
     const { address, city, state } = req.body;
     if (req.file !== undefined) {
       req.body.image = req.file.path;
@@ -58,7 +56,6 @@ module.exports = {
         }
       ],
       (err, result) => {
-        console.log('result here', result);
         if (err) return res.status(500).send(err);
 
         res.send(JSON.stringify(result));
