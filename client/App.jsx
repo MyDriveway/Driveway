@@ -15,13 +15,13 @@ import logo from './static/images/logo.png';
 
 const mapStateToProps = store => ({
   loggedIn: store.login.loggedIn,
+  focus: store.map.focus,
   signedUp: store.login.signedUp,
-  currLocation: store.map.currLocation
 });
 
 const mapDispatchToProps = dispatch => ({
   setLogin: bool => dispatch(actions.setLogin(bool)),
-  setCurrLocation: currLocation => dispatch(actions.setCurrLocation(currLocation)),
+  setFocus: coords => dispatch(actions.setFocus(coords)),
   setMarkers: locations => dispatch(actions.setMarkers(locations))
 });
 
@@ -39,10 +39,11 @@ class App extends Component {
 
         navigator.geolocation.getCurrentPosition(position => {
           const { latitude, longitude } = position.coords;
+          console.log('POSITION coords: ', position.coords);
           fetch(`/api/search/${longitude}/${latitude}`)
             .then(response => response.json())
             .then(data => {
-              this.props.setCurrLocation({ latitude: latitude, longitude: longitude });
+              this.props.setFocus({ lat: latitude, lng: longitude });
 
               //not totally working?
               let markers = [];

@@ -17,21 +17,21 @@ export const creationError = () => ({
 });
 
 // add a location search value to the store
-export const addSearch = userInput => ({
-  type: types.ADD_SEARCH,
-  payload: userInput
+export const updateSearchInput = searchInput => ({
+  type: types.UPDATE_SEARCH_INPUT,
+  payload: searchInput
 });
 
 // add a driveway to search locations
-export const addLocations = locations => ({
-  type: types.ADD_LOCATIONS,
-  payload: locations
+export const storeSearchResults = fetchData => ({
+  type: types.STORE_RESULTS,
+  payload: fetchData
 });
 
-// sets the current location fpr the map
-export const setCurrLocation = currLocation => ({
-  type: types.SET_CURR_LOCATION,
-  payload: currLocation
+// sets the current view for the map
+export const setFocus = coords => ({
+  type: types.SET_FOCUS,
+  payload: coords
 });
 
 // select a specific marker on the map (currently broken in the Google maps container)
@@ -41,7 +41,7 @@ export const selectMarker = id => ({
 });
 
 // deselect any marker on the map
-export const deselect = () => ({
+export const deselectMarker = () => ({
   type: types.DESELECT,
   payload: null
 });
