@@ -21,8 +21,11 @@ const mapStateToProps = (store, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onMarkerClick: event => dispatch(actions.selectMarker(event.target.id)),
-  onMapClick: () => dispatch(actions.deselectMarker())
+  handleMarkerClick: event => {
+    return dispatch(actions.selectMarker(event.target.id));
+  },
+  onMapClick: () => dispatch(actions.deselectMarker()),
+  handleDragEnd: newFocus => dispatch(actions.setFocus(newFocus.toJSON()))
 });
 
 class GoogleMapsContainer extends React.Component {
@@ -31,16 +34,21 @@ class GoogleMapsContainer extends React.Component {
     this._map = React.createRef();
   }
 
-shouldComponentUpdate(nextProps){
-  if(this._map.current && nextProps.focus){
-    console.log('FOCUS!!!: ', nextProps.focus);
-    this._map.current.panTo(nextProps.focus);
+  shouldComponentUpdate(nextProps) {
+    let result = false;
+    if (this._map.current) {
+      this._map.current.panTo(nextProps.focus);
+      if (
+        JSON.stringify(this.props.allMarkers) !==
+        JSON.stringify(nextProps.allMarkers)
+      ) {
+        result = true;
+      }
+    } else {
+      result = true;
+    }
+    return result;
   }
-
-  return true;
-}
-
-
 
   render() {
     const style = {
@@ -69,12 +77,13 @@ shouldComponentUpdate(nextProps){
           <GoogleMap
             ref={this._map}
             defaultZoom={13}
-            defaultCenter={{ lat: 33.985, lng: -118.4695 }}
+            defaultCenter={props.focus}
+            onDragEnd={() => props.handleDragEnd(this._map.current.getCenter())}
           >
             {markers}
           </GoogleMap>
         );
-        
+
         return map;
       })
     );
@@ -85,6 +94,8 @@ shouldComponentUpdate(nextProps){
           allMarkers={this.props.allMarkers}
           handleMarkerClick={this.props.handleMarkerClick}
           handleMapClick={this.props.handleMapClick}
+          handleDragEnd={this.props.handleDragEnd}
+          focus={this.props.focus}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${API}`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}

@@ -37,6 +37,7 @@ class App extends Component {
 
         navigator.geolocation.getCurrentPosition(position => {
           const { latitude, longitude } = position.coords;
+          console.log('POSITION coords: ', position.coords);
           fetch(`/api/search/${longitude}/${latitude}`)
             .then(response => response.json())
             .then(data => {

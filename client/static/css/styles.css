@@ -43,11 +43,7 @@
   position: relative;
 }
 
-.resultsWrapper {
-  height: 75vh;
-  width: 45%;
-  overflow: scroll;
-}
+
 
 .header {
   height: 10vh;
@@ -104,4 +100,15 @@
   .inputSection {
     width: 100%;
   }
+}
+.resultsWrapper {
+  height: 75vh;
+  width: 45%;
+  overflow: hidden;
+}
+
+.results {
+  width: 100%;
+  height: 99%;
+  overflow: scroll;
 }

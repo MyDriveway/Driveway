@@ -17,7 +17,6 @@ const styles = theme => ({
 });
 
 const validateData = function() {
-  console.log("THIS: ", this);
   return (
     this.get("address") &&
     this.get("city") &&
@@ -45,10 +44,8 @@ const mapDispatchToProps = dispatch => ({
     form.classList.remove("shake");
     data.isValid = validateData;
     if (data.isValid()) {
-      console.log("create data is valid");
       return dispatch(actions.createDriveway(data));
     } else {
-      console.log("invalid create data");
       form.classList.add("shake");
       return dispatch(actions.creationError());
     }
@@ -59,45 +56,6 @@ class CreateDriveway extends Component {
   constructor(props) {
     super(props);
   }
-
-  // handleOpen() {
-  //     this.setState({createDrivewayModal: true})
-  // }
-
-  // handleClose() {
-  //     this.setState({
-  //         submitError: false,
-  //         createDrivewayModal: false
-  //     })
-  // }
-
-  // handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   const form = document.querySelector('#createDrivewayForm')
-  //   form.classList.remove("shake");
-  //   const data = new FormData(e.target);
-
-  //   if (data.get('address'), data.get('city'), data.get('state'),
-  //       data.get('zip'), data.get("timeStart"), data.get("timeEnd")) {
-
-  //     fetch('/createDriveway', {
-  //         method: 'POST',
-  //         body: data
-  //     })
-  //     .then(res => res.json())
-  //     .then(posting => {
-  //         this.setState({createDrivewayModal: false})
-  //     })
-  //     .catch(err => console.log(err))
-  //   }
-  //   else {
-  //     this.setState({
-  //         submitError: true,
-  //     })
-  //     form.classList.add("shake");
-  //   }
-  // }
 
   render() {
     const style = {
@@ -127,8 +85,8 @@ class CreateDriveway extends Component {
           id="createDrivewayForm"
           className="animated"
         >
-          <DialogTitle>
-            <h2 style={{ color: "#236A62" }}>Create a driveway posting.</h2>
+          <DialogTitle style={{ color: "#236A62" }}>
+            Create a driveway posting.
           </DialogTitle>
           <form onSubmit={this.props.handleSubmit} style={style.form}>
             {this.props.submitError ? (
@@ -139,7 +97,6 @@ class CreateDriveway extends Component {
                   id="address"
                   placeholder="Address"
                   name="address"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -148,7 +105,6 @@ class CreateDriveway extends Component {
                   id="city"
                   placeholder="City"
                   name="city"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -157,7 +113,6 @@ class CreateDriveway extends Component {
                   id="state"
                   placeholder="State"
                   name="state"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -166,7 +121,6 @@ class CreateDriveway extends Component {
                   id="zip"
                   placeholder="Zip"
                   name="zip"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -175,7 +129,6 @@ class CreateDriveway extends Component {
                   id="timeStart"
                   placeholder="Start Time"
                   name="timeStart"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -184,7 +137,6 @@ class CreateDriveway extends Component {
                   id="timeEnd"
                   placeholder="End Time"
                   name="timeEnd"
-                  margin="normal"
                   className={classes.textField}
                 />
               </div>
@@ -195,7 +147,6 @@ class CreateDriveway extends Component {
                   id="address"
                   placeholder="Address"
                   name="address"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -203,7 +154,6 @@ class CreateDriveway extends Component {
                   id="city"
                   placeholder="City"
                   name="city"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -211,7 +161,6 @@ class CreateDriveway extends Component {
                   id="state"
                   placeholder="State"
                   name="state"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -219,7 +168,6 @@ class CreateDriveway extends Component {
                   id="zip"
                   placeholder="Zip"
                   name="zip"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -227,7 +175,6 @@ class CreateDriveway extends Component {
                   id="timeStart"
                   placeholder="Start Time"
                   name="timeStart"
-                  margin="normal"
                   className={classes.textField}
                 />
                 <Input
@@ -235,7 +182,6 @@ class CreateDriveway extends Component {
                   id="timeEnd"
                   placeholder="End Time"
                   name="timeEnd"
-                  margin="normal"
                   className={classes.textField}
                 />
               </div>
@@ -245,7 +191,6 @@ class CreateDriveway extends Component {
               id="rateDay"
               placeholder="Daily Rate"
               name="rateDay"
-              margin="normal"
               className={classes.textField}
             />
             <Input
@@ -253,7 +198,6 @@ class CreateDriveway extends Component {
               id="rateHour"
               placeholder="Hourly Rate"
               name="rateHour"
-              margin="normal"
               className={classes.textField}
             />
             <input

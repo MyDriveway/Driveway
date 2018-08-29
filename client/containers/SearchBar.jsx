@@ -1,91 +1,93 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Input from '@material-ui/core/Input';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Input from "@material-ui/core/Input";
 //import actions from action creators file
-import * as actions from '../actions/actions';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import * as actions from "../actions/actions";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit
   },
   input: {
-    display: 'none',
+    display: "none"
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-    color: '#236A62',
-    backgroundColor: '#f4f4f4',
+    color: "#236A62",
+    backgroundColor: "#f4f4f4",
     height: 36,
-    borderRadius: '5px',
-    width: '30vw'
+    borderRadius: "5px",
+    width: "30vw"
   }
 });
 
 const mapStateToProps = store => ({
-  userInput: store.searches.userInput,
-  locations: store.searches.locations,
+  searchInput: store.map.searchInput,
+  locations: store.map.locations,
   focus: store.map.focus
 });
 
 const mapDispatchToProps = dispatch => ({
-  addSearch: userInput => dispatch(actions.addSearch(userInput)),
-  addLocations: locations => dispatch(actions.addLocations(locations)),
+  handleChange: event =>
+    dispatch(actions.updateSearchInput(event.target.value)),
+  handleSubmit: input => {
+    //retrieve locations near inputted address in search bar and update list.
+    fetch(`/searchAddress/${input}`)
+      .then(response => response.json())
+      .then(data => dispatch(actions.storeSearchResults(data))
+    ).catch(err => {
+        return err;
+      });
+  },
   setFocus: coords => dispatch(actions.setFocus(coords))
 });
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
+  }
 
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-  
-  // make a post request to extract actual address from google maps through the backend
-  handleSearch(event) {
-    event.preventDefault();    
-    const input = this.props.userInput;
-    
-    fetch(`/searchAddress/${input}`)
-    .then(response => response.json())
-    .then(data => {
-      this.props.addLocations(data.results);
-      this.props.ocation(data.coords);
-    })
-    .catch(err => {
-      return err;
-    })
-  }
-  
   // set the state for the user's input from the search bar
-  handleChange(event) {
-    this.props.addSearch(event.target.value);
-  }
 
-  render() { 
+  render() {
     const { classes } = this.props;
     const style = {
       text: {
-        marginTop: '-10px',
+        marginTop: "-10px"
       }
-    }
-    return(
-      <div className='flexRow'>
-        <form onSubmit={this.handleSearch} className='flexRow'>
+    };
+    return (
+      <div className="flexRow">
+        <form
+          onSubmit={event => {
+            event.preventDefault();
+            this.props.handleSubmit(this.props.searchInput);
+          }}
+          className="flexRow"
+        >
           <Input
-              placeholder='Driveway'
-              onChange={this.handleChange}
-              margin='none'
-              className={classes.textField}
+            placeholder="Driveway"
+            onChange={this.props.handleChange}
+            margin="none"
+            className={classes.textField}
           />
-          <Button variant="contained" type='submit' style={{marginLeft: '2.5'}}>Search</Button>
+          <Button
+            variant="contained"
+            type="submit"
+            style={{ marginLeft: "2.5" }}
+          >
+            Search
+          </Button>
         </form>
       </div>
-    )
+    );
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SearchBar));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(SearchBar));

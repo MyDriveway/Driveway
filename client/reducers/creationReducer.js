@@ -24,7 +24,6 @@ const creationReducer = (state=initialState, action) => {
         method: 'POST',
         body: action.payload
       }).then((res) => {
-        console.log('POST status: ', res.status);
       })
       .catch((err) => {
         console.log(err);

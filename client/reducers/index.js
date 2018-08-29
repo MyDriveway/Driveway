@@ -7,7 +7,6 @@ import creationReducer from './creationReducer';
 
 //combine reducers
 const reducers = combineReducers({
-  searches: searchReducer,
   map: mapReducer,
   login: loginReducer,
   driveways: creationReducer
