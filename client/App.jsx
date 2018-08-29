@@ -7,6 +7,7 @@ import GoogleMapsContainer from './containers/GoogleMapsContainer.jsx';
 import Results from './containers/Results.jsx';
 import Logout from './components/Logout.jsx';
 import Login from './containers/Login.jsx';
+import Signup from './containers/Signup.jsx';
 import * as actions from './actions/actions';
 import './static/css/animation.css';
 import './static/css/styles.css';
@@ -14,7 +15,8 @@ import logo from './static/images/logo.png';
 
 const mapStateToProps = store => ({
   loggedIn: store.login.loggedIn,
-  focus: store.map.focus
+  focus: store.map.focus,
+  signedUp: store.login.signedUp,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -111,7 +113,11 @@ class App extends Component {
         ) : (
           // if no session exists, render login page
           <div>
-            <Login />
+            {this.props.signedUp ? (
+              <Login />
+            ) : (
+              <Signup />
+            )}
           </div>
         )}
       </div>
