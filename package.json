@@ -1,5 +1,5 @@
 {
-  "name": "Driveway",
+  "name": "driveway",
   "version": "1.0.0",
   "description": "An app to lease driveways",
   "main": "index.js",
@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hlmitchell/Driveway.git"
+    "url": "git+https://github.com/Codesmith-Targaryen/Driveway.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hlmitchell/Driveway/issues"
+    "url": "https://github.com/Codesmith-Targaryen/Driveway/issues"
   },
-  "homepage": "https://github.com/hlmitchell/Driveway#readme",
+  "homepage": "https://github.com/Codesmith-Targaryen/Driveway#readme",
   "dependencies": {
     "@google/maps": "^0.5.5",
     "@material-ui/core": "^1.5.1",
