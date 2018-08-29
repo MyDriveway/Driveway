@@ -4,6 +4,20 @@ var googleMapsClient = require('@google/maps').createClient({
 });
 
 module.exports = {
+  // Middleware for updating driveway schedule
+  update(req, res, next) {
+    Driveways.findOneAndUpdate({ _id: req.body.drivewayId }, { $set: { schedule: req.body.schedule } }, { new: true })
+      .then(driveway => {
+        // console.log('Found and saved driveway ===>', driveway);
+        res.locals.driveway = driveway;
+        next();
+      })
+      .catch(err => {
+        console.error('Error in drivewayController.update ===>', err);
+        next(err);
+      });
+  },
+
   create(req, res) {
     const { address, city, state } = req.body;
     if (req.file !== undefined) {
@@ -58,7 +72,7 @@ module.exports = {
       (err, result) => {
         if (err) return res.status(500).send(err);
 
-        res.send(JSON.stringify(result));
+        res.json(result);
       }
     );
   }

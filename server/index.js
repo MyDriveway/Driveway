@@ -54,6 +54,10 @@ const drivewayImage = multer({
   }
 });
 
+app.post('/updateDriveway', DrivewaysController.update, (req, res) => {
+  res.json(res.locals.driveway);
+});
+
 app.post('/createDriveway', drivewayImage.single('photo'), DrivewaysController.create);
 app.get('/api/search/:lng/:lat', DrivewaysController.search);
 
