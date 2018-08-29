@@ -52,6 +52,12 @@ export const setLogin = bool => ({
   payload: bool
 });
 
+// signedUp being true sends user to login, false sends user to sign up page
+export const setSignedUp = (bool) => ({
+  type: types.SET_SIGNED_UP,
+  payload: bool
+})
+
 // sets all the markers to show on the map
 export const setMarkers = markers => ({
   type: types.SET_MARKERS,
